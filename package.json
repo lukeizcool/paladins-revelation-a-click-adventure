@@ -1,0 +1,16 @@
+{
+  "name": "paladins-revelation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node pipeline/generate.mjs",
+    "generate:scenes": "node pipeline/generate.mjs scenes",
+    "generate:items": "node pipeline/generate.mjs items",
+    "generate:characters": "node pipeline/generate.mjs characters",
+    "upscale": "node pipeline/upscale.mjs"
+  },
+  "dependencies": {
+    "sharp": "^0.33.5"
+  }
+}

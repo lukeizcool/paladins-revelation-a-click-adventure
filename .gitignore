@@ -1,0 +1,7 @@
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+
+# Pipeline state — local PixelLab job IDs, not needed in repo
+pipeline/status.json

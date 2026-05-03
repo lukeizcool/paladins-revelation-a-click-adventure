@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__pixellab__create_object",
+      "mcp__pixellab__create_character",
+      "mcp__pixellab__list_objects",
+      "mcp__pixellab__get_object",
+      "Bash(curl -sSL -o chapel.png       \"https://backblaze.pixellab.ai/file/pixellab-characters/objects/d565414f-cda5-4090-87e3-c84839998ca8/fbfeae60-0d11-42c4-8060-e24ccf56364c/rotations/unknown.png\")",
+      "Bash(curl -sSL -o courtyard.png    \"https://backblaze.pixellab.ai/file/pixellab-characters/objects/d565414f-cda5-4090-87e3-c84839998ca8/ed748ccf-8c6b-4ec6-902d-0f2e5123ef9a/rotations/unknown.png\")",
+      "Bash(curl -sSL -o wood.png         \"https://backblaze.pixellab.ai/file/pixellab-characters/objects/d565414f-cda5-4090-87e3-c84839998ca8/9ca4c539-8173-4c33-a000-db436a6086a7/rotations/unknown.png\")",
+      "Bash(curl -sSL -o hollow.png       \"https://backblaze.pixellab.ai/file/pixellab-characters/objects/d565414f-cda5-4090-87e3-c84839998ca8/41c97400-bfda-41db-993c-7da6abbd4631/rotations/unknown.png\")",
+      "Bash(curl -sSL -o lair.png         \"https://backblaze.pixellab.ai/file/pixellab-characters/objects/d565414f-cda5-4090-87e3-c84839998ca8/cec5d4c4-68a5-4ebf-b93f-37eb2017bbe3/rotations/unknown.png\")",
+      "mcp__pixellab__get_character",
+      "Bash(curl -sSL -o parchment.png \"https://backblaze.pixellab.ai/file/pixellab-characters/objects/d565414f-cda5-4090-87e3-c84839998ca8/b0e234de-fcc5-4b48-986b-aa71e3abf68c/rotations/unknown.png\")",
+      "Bash(curl -sSL -o signet.png    \"https://backblaze.pixellab.ai/file/pixellab-characters/objects/d565414f-cda5-4090-87e3-c84839998ca8/bc58fde7-7c70-4ee7-80ea-d0f3c6e5d9e5/rotations/unknown.png\")",
+      "Bash(curl -sSL -o scale.png     \"https://backblaze.pixellab.ai/file/pixellab-characters/objects/d565414f-cda5-4090-87e3-c84839998ca8/ee45bd64-4bed-4a47-8521-37f64802d271/rotations/unknown.png\")",
+      "Bash(curl -sSL -o crow.png      \"https://backblaze.pixellab.ai/file/pixellab-characters/objects/d565414f-cda5-4090-87e3-c84839998ca8/dd141991-51b2-46c6-b24b-a480094f9c05/rotations/unknown.png\")",
+      "Bash(curl -sSL -o sir_aric.png  \"https://backblaze.pixellab.ai/file/pixellab-characters/d565414f-cda5-4090-87e3-c84839998ca8/81637d83-eb26-46a8-a0f4-0d4f9b3a6717/rotations/south.png\")",
+      "Bash(curl -sSL -o valen.png       \"https://backblaze.pixellab.ai/file/pixellab-characters/d565414f-cda5-4090-87e3-c84839998ca8/c97b487e-f427-419f-bcda-4537795f3f71/rotations/south.png\")",
+      "Bash(curl -sSL -o crossbowman.png \"https://backblaze.pixellab.ai/file/pixellab-characters/d565414f-cda5-4090-87e3-c84839998ca8/e457fc4a-80fc-40f6-be1e-c18bd8c62cd7/rotations/south.png\")",
+      "Bash(curl -sSL -o dragon_cael.png \"https://backblaze.pixellab.ai/file/pixellab-characters/d565414f-cda5-4090-87e3-c84839998ca8/f3c5fa59-797b-4f11-bda2-f1e7c533491d/rotations/south.png\")",
+      "Bash(curl -sSL -o ysolde.png      \"https://backblaze.pixellab.ai/file/pixellab-characters/d565414f-cda5-4090-87e3-c84839998ca8/89f465ba-b697-4e35-9b7f-3bb09aaead4b/rotations/south.png\")",
+      "Bash(npm --version)",
+      "Bash(npm install *)",
+      "Bash(node pipeline/upscale.mjs)",
+      "mcp__pixellab__vary_object",
+      "Bash(curl -sSL -o chapel_empty.png \"https://backblaze.pixellab.ai/file/pixellab-characters/objects/d565414f-cda5-4090-87e3-c84839998ca8/d2a98cc5-d3cb-48c3-b68b-89e3c670fd0a/rotations/unknown.png\")",
+      "Bash(curl -sSL -o hollow_empty.png \"https://backblaze.pixellab.ai/file/pixellab-characters/objects/d565414f-cda5-4090-87e3-c84839998ca8/f498ece6-2500-42fc-8aba-833dbbdb90a0/rotations/unknown.png\")",
+      "Bash(cp \"/c/Users/lukeg/OneDrive/Desktop/songs/Title Screen.mp3\" \"/c/Users/lukeg/OneDrive/ThePaladinsRevelation-Click/assets/audio/title.mp3\")",
+      "Bash(cp \"/c/Users/lukeg/OneDrive/Desktop/songs/Adventuring.mp3\" \"/c/Users/lukeg/OneDrive/ThePaladinsRevelation-Click/assets/audio/adventure.mp3\")",
+      "Bash(cp \"/c/Users/lukeg/OneDrive/Desktop/songs/Final Showdown.mp3\" \"/c/Users/lukeg/OneDrive/ThePaladinsRevelation-Click/assets/audio/showdown.mp3\")",
+      "Bash(cp \"/c/Users/lukeg/OneDrive/Desktop/songs/Ending.mp3\" \"/c/Users/lukeg/OneDrive/ThePaladinsRevelation-Click/assets/audio/ending.mp3\")"
+    ]
+  }
+}

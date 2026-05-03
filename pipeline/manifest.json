@@ -1,0 +1,177 @@
+{
+  "style": "dark fantasy 1987 Mac/Amiga adventure game pixel art, limited 16-color palette, heavy blacks, painterly Shadowgate style",
+  "assets": {
+    "scenes": [
+      {
+        "key": "chapel",
+        "type": "object",
+        "directions": 1,
+        "view": "side",
+        "size": 256,
+        "description": "interior of a stone chapel at dawn, tall arched stained-glass window depicting a saint lancing a red dragon, white stone altar with a silver longsword resting on it, oak door bound in iron to the right, lectern with open tome to the left, single candle flame, dust motes in slanted golden light"
+      },
+      {
+        "key": "courtyard",
+        "type": "object",
+        "directions": 1,
+        "view": "side",
+        "size": 256,
+        "description": "medieval castle courtyard at bruised purple-orange dusk, stone well with mossy roof and a black crow perched, old woman stablehand beside a saddled horse, posted parchment proclamation with red wax seal, raised iron portcullis revealing a road west, crescent moon"
+      },
+      {
+        "key": "wood",
+        "type": "object",
+        "directions": 1,
+        "view": "side",
+        "size": 256,
+        "description": "blasted ashen forest under blood-orange sky, stark black skeletal trees, forking dirt path with northern branch climbing to a smoking distant mountain peak, southern branch descending to a hollow with warm orange firelight, wounded ranger in dark cloak slumped against a tree stump bleeding, a black raven on a low branch"
+      },
+      {
+        "key": "hollow",
+        "type": "object",
+        "directions": 1,
+        "view": "side",
+        "size": 256,
+        "description": "shadowy forest hollow inside cavern walls, sorceress in violet robe with golden eyes seated by a cold white flame that gives no smoke, flat offering stone bearing a dark chalice of wine, a single red dragon scale glowing like ember, and a small black scrying mirror"
+      },
+      {
+        "key": "lair",
+        "type": "object",
+        "directions": 1,
+        "view": "side",
+        "size": 256,
+        "description": "vast dragon's cavern lair lit by molten red heat-glow, enormous red dragon coiled on a hoard of gold coins with a pale crescent scar on its brow, eyes open and gentle, six royal crossbowmen in tabards aiming bolts from the shadows on the left, a robed chancellor watching from a high stone ledge on the upper right, paladin silhouette in foreground with raised sword"
+      },
+      {
+        "key": "ending_dark",
+        "type": "object",
+        "directions": 1,
+        "view": "side",
+        "size": 256,
+        "description": "tragic dark ending scene, slain grey-bearded man with crescent scar lying peacefully on a pile of gold coins where a dragon once lay, paladin standing over him with bloody sword lowered, multiple crossbow bolts flying toward the paladin from off-screen, near-black palette with deep blood reds"
+      },
+      {
+        "key": "ending_light",
+        "type": "object",
+        "directions": 1,
+        "view": "side",
+        "size": 256,
+        "description": "triumphant dawn ending scene, paladin standing with raised silver sword beside a vast protective red dragon wing, a clawed dragon hand resting gently on the paladin's shoulder, golden sunrise breaking over distant mountains, slain robed chancellor in background with scattered crossbow bolts"
+      }
+    ],
+    "items": [
+      {
+        "key": "sword",
+        "type": "object",
+        "directions": 1,
+        "view": "side",
+        "size": 64,
+        "description": "ornate silver longsword called Dawncleaver, gold pommel embossed with a sigil of a coiled dragon cradling a sun, leather-wrapped grip, item icon on transparent background"
+      },
+      {
+        "key": "parchment",
+        "type": "object",
+        "directions": 1,
+        "view": "high top-down",
+        "size": 64,
+        "description": "folded aged parchment letter sealed with a red wax seal bearing a knight's crest, item icon on transparent background"
+      },
+      {
+        "key": "signet",
+        "type": "object",
+        "directions": 1,
+        "view": "high top-down",
+        "size": 64,
+        "description": "gold signet ring with red enamel face engraved with the letter V, faintly crusted with dried blood, item icon on transparent background"
+      },
+      {
+        "key": "scale",
+        "type": "object",
+        "directions": 1,
+        "view": "high top-down",
+        "size": 64,
+        "description": "single large dragon scale the color of banked embers, deep red with glowing orange center, item icon on transparent background"
+      }
+    ],
+    "characters": [
+      {
+        "key": "sir_aric",
+        "type": "character",
+        "mode": "standard",
+        "n_directions": 4,
+        "view": "side",
+        "size": 48,
+        "name": "Sir Aric",
+        "description": "weary middle-aged paladin knight, dark blue tabard with gold sun emblem, silver plate armor, short brown beard, grim expression"
+      },
+      {
+        "key": "mirren",
+        "type": "character",
+        "mode": "standard",
+        "n_directions": 4,
+        "view": "side",
+        "size": 48,
+        "name": "Old Mirren",
+        "description": "elderly woman stablehand with kind tear-rimmed eyes, grey hair under a brown headscarf, simple muddy-brown peasant dress and apron"
+      },
+      {
+        "key": "ranger",
+        "type": "character",
+        "mode": "standard",
+        "n_directions": 4,
+        "view": "side",
+        "size": 48,
+        "name": "Wounded Ranger",
+        "description": "dying forest ranger slumped, dark green hooded cloak stained with dark blood, leather jerkin, crossbow bolt snapped off in his chest"
+      },
+      {
+        "key": "ysolde",
+        "type": "character",
+        "mode": "standard",
+        "n_directions": 4,
+        "view": "side",
+        "size": 48,
+        "name": "Ysolde",
+        "description": "ancient sorceress with shimmering pale skin and glowing golden coin-bright eyes, deep violet hooded robe, dark auburn hair, faintly inhuman"
+      },
+      {
+        "key": "valen",
+        "type": "character",
+        "mode": "standard",
+        "n_directions": 4,
+        "view": "side",
+        "size": 48,
+        "name": "Chancellor Valen",
+        "description": "haughty thin chancellor in deep crimson robes, thin gold circlet on grey-streaked dark hair, cruel smiling face"
+      },
+      {
+        "key": "crossbowman",
+        "type": "character",
+        "mode": "standard",
+        "n_directions": 4,
+        "view": "side",
+        "size": 48,
+        "name": "Royal Crossbowman",
+        "description": "royal soldier in dark tabard with gold crown crest, steel helm, holding a loaded crossbow, eyes downcast"
+      },
+      {
+        "key": "dragon_cael",
+        "type": "character",
+        "mode": "pro",
+        "n_directions": 8,
+        "view": "side",
+        "size": 96,
+        "name": "Cael the Wyrm",
+        "description": "vast ancient red dragon coiled, deep crimson scales, gold eyes one half-lidded, pale crescent moon scar on brow, gentle and mournful posture"
+      },
+      {
+        "key": "crow",
+        "type": "object",
+        "directions": 1,
+        "view": "side",
+        "size": 32,
+        "description": "small black crow with one bright knowing yellow eye, perched, item-style sprite on transparent background"
+      }
+    ]
+  }
+}

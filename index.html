@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Paladin's Revelation</title>
+<style>
+  :root { --ink:#d4c49a; --bg:#0a0806; --panel:#1a1410; --rule:#3a2a1a; --accent:#c9a24a; --red:#8a1818; --gold:#ffcc40; }
+  html,body { margin:0; padding:0; background:#000; color:var(--ink); font-family: "Times New Roman", serif; }
+  #title-overlay { position:fixed; inset:0; background:#000; color:var(--accent); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; z-index:99; cursor:pointer; font-size:28px; letter-spacing:4px; transition:opacity .6s; }
+  #title-overlay.gone { opacity:0; pointer-events:none; }
+  #title-actions { display:flex; align-items:center; gap:14px; margin-top:4px; }
+  #title-enter {
+    background:transparent; color:var(--accent); border:2px solid var(--accent);
+    padding:10px 28px; font-family:"Times New Roman",serif; font-size:18px;
+    letter-spacing:6px; cursor:pointer; transition:all .25s ease;
+    text-shadow: 0 0 8px rgba(255,204,64,0.6), 0 0 16px rgba(201,162,74,0.4);
+    box-shadow: 0 0 12px rgba(201,162,74,0.25), inset 0 0 12px rgba(201,162,74,0.1);
+  }
+  #title-enter:hover { background:var(--accent); color:#000; text-shadow:none; box-shadow: 0 0 24px rgba(255,204,64,0.6); }
+  #title-music {
+    background:transparent; color:var(--accent); border:1px solid var(--accent);
+    width:36px; height:36px; padding:0; font-size:18px; cursor:pointer;
+    transition:all .2s ease; text-shadow: 0 0 6px rgba(201,162,74,0.4);
+  }
+  #title-music:hover { background:var(--rule); }
+  #title-music.muted { color:#5a4a30; border-color:#5a4a30; text-shadow:none; }
+  #title-aric { width:160px; height:160px; image-rendering:pixelated; filter: drop-shadow(0 0 12px rgba(201,162,74,0.4)); }
+  #title-text { text-align:center; text-shadow: 0 0 8px rgba(255,204,64,0.7), 0 0 18px rgba(201,162,74,0.5), 0 0 32px rgba(201,162,74,0.3); animation: titleGlow 3.2s ease-in-out infinite; }
+  #title-text .hint { font-size:13px; letter-spacing:2px; color:#8a7a5a; display:block; margin-top:8px; text-shadow: 0 0 6px rgba(201,162,74,0.4); }
+  @keyframes titleGlow { 0%,100% { text-shadow: 0 0 8px rgba(255,204,64,0.7), 0 0 18px rgba(201,162,74,0.5), 0 0 32px rgba(201,162,74,0.3); } 50% { text-shadow: 0 0 12px rgba(255,224,128,0.9), 0 0 28px rgba(255,204,64,0.7), 0 0 48px rgba(201,162,74,0.5); } }
+
+  /* ===== Game over overlay ===== */
+  #gameover-overlay {
+    position: fixed; inset: 0; background: #000;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 98; opacity: 0; pointer-events: none;
+    transition: opacity 1.4s ease;
+  }
+  #gameover-overlay.shown { opacity: 1; pointer-events: auto; }
+  #gameover-text { max-width: 600px; padding: 0 24px; text-align: center; color: var(--accent); font-family: "Times New Roman", serif; }
+  #gameover-text .go-title {
+    font-size: 42px; letter-spacing: 8px; margin-bottom: 28px;
+    text-shadow: 0 0 8px rgba(255,204,64,0.7), 0 0 18px rgba(201,162,74,0.5), 0 0 32px rgba(201,162,74,0.3);
+    animation: titleGlow 3.2s ease-in-out infinite;
+  }
+  #gameover-text .go-msg { font-size: 17px; line-height: 1.6; color: #c9a24a; text-shadow: 0 0 6px rgba(201,162,74,0.4); margin-bottom: 28px; }
+  #gameover-text .go-hint { font-size: 13px; letter-spacing: 2px; color: #8a7a5a; text-shadow: 0 0 6px rgba(201,162,74,0.4); }
+  .scene-sprite.anim-bob { animation: bob 1.4s ease-in-out infinite; }
+
+  /* ===== Edit mode (toggle with `~`) ===== */
+  #scene-frame.edit-mode .hotspot,
+  #scene-frame.edit-mode [data-edit-target] {
+    outline: 2px dashed #ffcc40 !important;
+    background: rgba(255,204,64,0.10) !important;
+    pointer-events: auto !important;
+    cursor: move !important;
+    mix-blend-mode: normal !important;
+    animation: none !important;
+    z-index: 20;
+  }
+  #scene-frame.edit-mode #scene-fx { pointer-events: auto; }
+  .edit-resize {
+    position: absolute; right: -1px; bottom: -1px;
+    width: 12px; height: 12px;
+    background: #ffcc40; border: 1px solid #000;
+    cursor: nwse-resize; display: none;
+  }
+  #scene-frame.edit-mode .edit-resize { display: block; }
+  .edit-tag {
+    position: absolute; top: -16px; left: 0;
+    background: #000; color: #ffcc40;
+    font-size: 10px; padding: 1px 5px; letter-spacing: 1px;
+    white-space: nowrap; pointer-events: none; display: none;
+    font-family: "Courier New", monospace;
+  }
+  #scene-frame.edit-mode .edit-tag { display: block; }
+  /* ===== Music controls ===== */
+  #music-controls {
+    position: fixed; top: 8px; right: 8px;
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(10,8,6,0.85); border: 1px solid var(--rule);
+    padding: 4px 8px; z-index: 150;
+  }
+  #music-toggle {
+    background: transparent; border: 1px solid var(--rule);
+    color: var(--accent); font-size: 14px; cursor: pointer;
+    width: 24px; height: 24px; padding: 0; line-height: 22px;
+  }
+  #music-toggle:hover { background: var(--rule); }
+  #music-toggle.muted { color: #5a4a30; text-decoration: line-through; }
+  #music-volume {
+    width: 90px; height: 14px; accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  #edit-readout {
+    position: fixed; bottom: 8px; left: 8px;
+    background: #000; color: #ffcc40;
+    padding: 4px 10px; font-family: "Courier New", monospace; font-size: 12px;
+    border: 1px solid #ffcc40; z-index: 200;
+  }
+  #app { max-width:720px; margin:0 auto; padding:14px; display:grid; grid-template-columns:1fr 220px; gap:10px; }
+  #scene-frame { grid-column:1/3; background:var(--panel); border:2px solid var(--rule); aspect-ratio: 320/200; position:relative; overflow:hidden; }
+  #scene-frame.flash-red  { animation:flashRed .6s; }
+  #scene-frame.flash-gold { animation:flashGold .6s; }
+  @keyframes flashRed  { 0%{box-shadow:inset 0 0 0 9999px #8a0000} 100%{box-shadow:none} }
+  @keyframes flashGold { 0%{box-shadow:inset 0 0 0 9999px #c9a24a} 100%{box-shadow:none} }
+  #scene-art { position:absolute; inset:0; }
+  #scene-art svg { width:100%; height:100%; display:block; }
+  #scene-title { position:absolute; top:4px; left:6px; color:var(--accent); font-size:12px; letter-spacing:2px; text-shadow:1px 1px 0 #000; }
+  .hotspot { position:absolute; cursor:crosshair; }
+  .hotspot:hover { outline:1px dashed var(--accent); }
+  .hotspot-label { display:none; }
+  #verbs { grid-column:1/3; display:flex; flex-wrap:wrap; gap:4px; background:var(--panel); border:2px solid var(--rule); padding:6px; }
+  .verb { padding:6px 12px; border:1px solid var(--rule); cursor:pointer; user-select:none; letter-spacing:1px; }
+  .verb:hover, .verb.active { background:var(--accent); color:#000; }
+  #text-frame { background:var(--panel); border:2px solid var(--rule); padding:8px 10px; height:200px; overflow-y:auto; font-size:14px; line-height:1.4; }
+  .narrate { margin:0 0 6px; }
+  .narrate.system { color:#9a8a6a; font-style:italic; }
+  .narrate.command { color:var(--accent); }
+  .narrate.death  { color:var(--red); font-weight:bold; letter-spacing:3px; }
+  .narrate.victory{ color:var(--gold); font-weight:bold; letter-spacing:3px; }
+  .narrate b { color:var(--accent); }
+  #inv-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:4px; background:var(--panel); border:2px solid var(--rule); padding:6px; }
+  .inv-slot { aspect-ratio:1; border:1px solid var(--rule); display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; padding:2px; }
+  .inv-slot.empty { opacity:.25; }
+  .inv-slot.active { outline:2px solid var(--accent); }
+  .inv-slot .icon { width:70%; height:70%; }
+  .inv-slot .icon svg, .inv-slot .icon img { width:100%; height:100%; }
+  .inv-slot .name { font-size:9px; color:var(--ink); letter-spacing:1px; }
+  #status-bar { grid-column:1/3; display:flex; justify-content:space-between; font-size:11px; color:#8a7a5a; padding:0 4px; letter-spacing:1px; }
+  #cursor-hint { position:fixed; pointer-events:none; background:#000; color:var(--accent); padding:2px 6px; font-size:11px; border:1px solid var(--accent); display:none; z-index:50; transform:translate(8px,8px); }
+
+  /* ===== Ambient scene FX (CSS-only overlays on top of static scene PNGs) ===== */
+  #scene-fx { position:absolute; inset:0; pointer-events:none; }
+  .fx { mix-blend-mode: screen; }
+  .fx-candle    { background: radial-gradient(circle, #ffcc55 0%, #ff8020 40%, transparent 70%); animation: candle 0.18s steps(2) infinite; opacity:.85; }
+  .fx-firelight { background: radial-gradient(circle, #ffaa30 0%, #c04010 50%, transparent 80%); animation: firelight 0.22s steps(3) infinite; opacity:.7; }
+  .fx-whiteflame{ background: radial-gradient(circle, #ffffff 0%, #b4d4f0 40%, transparent 75%); animation: whiteflame 0.3s ease-in-out infinite alternate; opacity:.9; }
+  .fx-smoke     { background: radial-gradient(ellipse at center, #6a5050 0%, transparent 70%); animation: smoke 4s linear infinite; opacity:.5; }
+  .fx-moon      { background: radial-gradient(circle, #ffffcc 0%, transparent 65%); animation: moonpulse 6s ease-in-out infinite; opacity:.35; }
+  .fx-blink     { background:#000; animation: blink 5s steps(1) infinite; }
+  .fx-heat      { background: linear-gradient(180deg, transparent 50%, rgba(255,80,0,0.06) 100%); animation: heat 1.6s ease-in-out infinite alternate; }
+  .fx-vignette-red { box-shadow: inset 0 0 120px 30px #500; mix-blend-mode: multiply; }
+  .fx-sunrays   { background: conic-gradient(from 0deg at 62% 40%, rgba(255,224,128,0.18) 0deg, transparent 30deg, rgba(255,224,128,0.12) 60deg, transparent 90deg, rgba(255,224,128,0.18) 120deg, transparent 150deg, rgba(255,224,128,0.12) 180deg, transparent 210deg, rgba(255,224,128,0.18) 240deg, transparent 270deg, rgba(255,224,128,0.12) 300deg, transparent 330deg); animation: sunrays 30s linear infinite; }
+  @keyframes candle    { 0%{transform:scale(1) translateY(0);opacity:.85} 50%{transform:scale(1.08) translateY(-1px);opacity:1} 100%{transform:scale(.95);opacity:.7} }
+  @keyframes firelight { 0%{transform:scale(1);opacity:.7} 50%{transform:scale(1.15);opacity:.95} 100%{transform:scale(.92);opacity:.6} }
+  @keyframes whiteflame{ 0%{transform:scale(1);opacity:.85} 100%{transform:scale(1.12);opacity:1} }
+  @keyframes smoke     { 0%{transform:translateY(0) scale(1);opacity:.5} 100%{transform:translateY(-30px) scale(1.6);opacity:0} }
+  @keyframes moonpulse { 0%,100%{opacity:.3} 50%{opacity:.45} }
+  @keyframes blink     { 0%,96%{opacity:0} 97%,99%{opacity:1} 100%{opacity:0} }
+  @keyframes heat      { 0%{opacity:.4} 100%{opacity:.7} }
+  @keyframes sunrays   { 0%{transform:rotate(0)} 100%{transform:rotate(360deg)} }
+
+  .fx-shimmer { animation: shimmer 2.4s ease-in-out infinite; }
+  @keyframes shimmer { 0%,100%{filter:brightness(1)} 50%{filter:brightness(1.4) drop-shadow(0 0 4px #ffcc40)} }
+
+  /* ===== Portrait popup (shown during SPEAK; uses PixelLab character sprite) ===== */
+  #portrait { position:absolute; bottom:6px; right:6px; width:28%; max-width:140px; background:rgba(10,8,6,0.85); border:2px solid var(--accent); padding:4px; transition:opacity .4s, transform .4s; z-index:5; }
+  #portrait.gone { opacity:0; transform:translateY(8px); pointer-events:none; }
+  #portrait.speaking .portrait-img { animation: bob 1.4s ease-in-out infinite; }
+  .portrait-img { width:100%; height:auto; image-rendering:pixelated; display:block; }
+  .portrait-name { color:var(--accent); font-size:10px; letter-spacing:2px; text-align:center; padding:2px 0 0; }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-2px)} }
+</style>
+</head>
+<body>
+  <div id="title-overlay">
+    <img id="title-aric" src="assets/sir_aric.png" alt="" onerror="this.style.display='none'">
+    <div id="title-text">— THE PALADIN'S REVELATION —<br><span class="hint">(click to begin)</span></div>
+  </div>
+  <div id="app">
+    <div id="scene-frame">
+      <div id="scene-title"></div>
+      <div id="scene-art"></div>
+      <div id="scene-fx"></div>
+      <div id="portrait" class="gone"></div>
+    </div>
+    <div id="verbs"></div>
+    <div id="text-frame"></div>
+    <div id="inv-grid"></div>
+    <div id="status-bar">
+      <div id="status-left"></div>
+      <div id="status-right" class="right">Choose a verb, then an object</div>
+    </div>
+  </div>
+  <div id="cursor-hint"></div>
+  <div id="music-controls">
+    <button id="music-toggle" title="Mute / unmute music">♪</button>
+    <input id="music-volume" type="range" min="0" max="100" value="55" title="Music volume">
+  </div>
+
+  <!-- Generated asset manifest (overwritten by pipeline/generate.mjs).  Loads first so game.js can detect what's available. -->
+  <script src="assets/manifest.js"></script>
+  <script src="scenes.js"></script>
+  <script src="art.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
