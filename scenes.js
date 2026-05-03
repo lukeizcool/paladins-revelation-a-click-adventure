@@ -9,8 +9,8 @@ window.SCENES = {
     objects: {
       altar: { name: "altar", look: "Carved of white stone, worn smooth by centuries of kneeling knights. Thy father's SWORD rests upon it, awaiting a worthy hand." },
       sword: { name: "sword", look: "The blade is called DAWNCLEAVER. Its pommel bears a sigil: a dragon cradling a sun. Strange heraldry for a dragonslayer.", take: true },
-      window: { name: "window", look: "St. Orien the Pure, lance buried in a wyrm's breast. Thou hast gazed upon it since boyhood. Something in the dragon's painted eye seems to plead." },
-      tome: { name: "tome", look: "The page speaks of the Accord of Ash — a pact between men and dragons, struck ere the Sundering. The ink is faded, but one line stands bold: 'Let no son raise steel against his own blood.'" },
+      window: { name: "window", look: "St. Orien the Pure, lance buried in a wyrm's breast — no, look closer. The lance-tip strikes not the heart, but a pale crescent on the dragon's BROW. The saint knew where to aim. Thou hast gazed upon this glass since boyhood. Something in the dragon's painted eye seems to plead." },
+      tome: { name: "tome", look: "The page speaks of the Accord of Ash — a pact between men and dragons, struck ere the Sundering. The ink is faded, but one line stands bold: 'Let no son raise steel against his own blood.' Below, in the margin, a dragonslayer's hand hath scratched: 'The wyrm-scale is mailed against any blade, save where the MOON-MARK doth scar the brow. Strike there, or strike not at all.'" },
       door: { name: "door", look: "Oak bound in iron. Beyond it waits thy quest — and the road to the Wyrm of Skar'Vael." }
     },
     exits: {
@@ -102,7 +102,7 @@ window.SCENES = {
     art: "lair",
     description: "Thou standest upon the threshold of a vast CAVERN. Heat rolls out in waves. Within, curled upon a bed of cold gold, lies the DRAGON — vast, red, breathing slow as a sleeping sea. Upon its brow is a crescent SCAR. In the cavern's shadow, crossbowmen in ROYAL TABARDS have taken position, their bolts trained not upon the dragon — but upon thee, should thou hesitate. CHANCELLOR VALEN watches from a high ledge.",
     objects: {
-      dragon: { name: "dragon", look: "Its eyes open. They are thy father's eyes. Gold flecked with grey, the left one always half-lidded from an old jest-wound. It does not rise. It waits." },
+      dragon: { name: "dragon", look: "Its eyes open. They are thy father's eyes. Gold flecked with grey, the left one always half-lidded from an old jest-wound. It does not rise. It waits. Its scales gleam like layered shields — no blade thou ownest could pierce them, save at the one pale CRESCENT SCAR upon its brow." },
       scar: { name: "scar", look: "A crescent moon, pale against red scale. Thy father bore its twin upon his own brow. Thou hast kissed that scar goodnight as a child." },
       valen: { name: "valen", look: "The Chancellor smiles down at thee. 'Strike, paladin. One clean blow, and the realm is saved. Hesitate, and my men will save it without thee — and for thy trouble, they will save thy village too.'" },
       crossbowmen: { name: "crossbowmen", look: "Six of them. Bolts drawn. They do not meet thine eyes — they have done this before." },

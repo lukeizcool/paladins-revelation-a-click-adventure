@@ -455,7 +455,11 @@ function handleUseItemOn(item, target) {
   }
   // Lair: USE sword
   if (state.scene === "lair") {
-    if (item === "sword" && (target === "dragon" || target === "scar")) {
+    if (item === "sword" && target === "dragon") {
+      doDeath("Thou drive Dawncleaver at the dragon's flank. The blade rings against crimson scale — and SHATTERS. The wyrm's eye opens, slow and pitying. A single breath, hot as a forge's heart, and thou art ash upon the gold. The tome warned thee: only the moon-mark upon the brow may be pierced. Thy father's body is unbroken. Thou art the one who burned.");
+      return;
+    }
+    if (item === "sword" && target === "scar") {
       doEndingStrike();
       return;
     }
@@ -526,7 +530,11 @@ function handleHit(objKey) {
     return;
   }
   if (state.scene === "lair") {
-    if (objKey === "dragon" || objKey === "scar") {
+    if (objKey === "dragon") {
+      doDeath("Thou strike at the dragon's flank with the full weight of Dawncleaver. The blade rings against crimson scale — and SHATTERS. The wyrm's eye opens, slow and pitying. A single breath, hot as a forge's heart, and thou art ash upon the gold. The tome warned thee: only the moon-mark upon the brow may be pierced. Thy father's body is unbroken. Thou art the one who burned.");
+      return;
+    }
+    if (objKey === "scar") {
       doEndingStrike();
       return;
     }
