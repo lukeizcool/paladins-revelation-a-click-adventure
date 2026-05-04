@@ -5,3 +5,6 @@ Thumbs.db
 
 # Pipeline state — local PixelLab job IDs, not needed in repo
 pipeline/status.json
+
+# Author's lore document — kept local, never pushed
+STORY.md
