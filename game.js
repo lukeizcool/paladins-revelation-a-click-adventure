@@ -249,6 +249,31 @@ document.getElementById("text-frame").addEventListener("click", () => {
   if (_typing) _skipCurrent = true;
 });
 
+// Custom always-visible scroll thumb for #text-frame. iOS Safari refuses to
+// keep native scrollbars on screen, so we render our own gold bar that tracks
+// scroll position whenever the story can be scrolled.
+const $scrollThumb = document.getElementById("text-scroll-thumb");
+function updateScrollThumb() {
+  const r = $text.getBoundingClientRect();
+  const ratio = $text.clientHeight / Math.max($text.scrollHeight, 1);
+  if (ratio >= 0.999) { $scrollThumb.classList.add("hidden"); return; }
+  $scrollThumb.classList.remove("hidden");
+  const pad = 6;
+  const trackH = Math.max(0, r.height - pad * 2);
+  const thumbH = Math.max(20, trackH * ratio);
+  const maxScroll = $text.scrollHeight - $text.clientHeight;
+  const offset = maxScroll > 0 ? ($text.scrollTop / maxScroll) * (trackH - thumbH) : 0;
+  $scrollThumb.style.left = (r.right - 8) + "px";
+  $scrollThumb.style.top = (r.top + pad + offset) + "px";
+  $scrollThumb.style.height = thumbH + "px";
+}
+$text.addEventListener("scroll", updateScrollThumb, { passive: true });
+window.addEventListener("resize", updateScrollThumb, { passive: true });
+window.addEventListener("scroll", updateScrollThumb, { passive: true });
+// Re-measure when narration appends new paragraphs (or typewriter reveals chars).
+new MutationObserver(updateScrollThumb).observe($text, { childList: true, subtree: true, characterData: true });
+requestAnimationFrame(updateScrollThumb);
+
 // Idle hint — after ~18s without input, hotspots gently pulse so the player
 // notices what's interactable. Any tap clears it instantly.
 const IDLE_MS = 18000;
