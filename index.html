@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <title>The Paladin's Revelation</title>
 <style>
-  :root { --ink:#d4c49a; --bg:#0a0806; --panel:#1a1410; --rule:#3a2a1a; --accent:#c9a24a; --red:#8a1818; --gold:#ffcc40; }
+  :root { --ink:#d4c49a; --bg:#0a0806; --panel:#1a1410; --rule:#3a2a1a; --accent:#c9a24a; --red:#8a1818; --gold:#ffcc40; --text-scale: 1; }
   html,body { margin:0; padding:0; background:#000; color:var(--ink); font-family: "Times New Roman", serif; touch-action: manipulation; -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
   *, *::before, *::after { box-sizing: border-box; }
   button, .hotspot, .verb, .inv-slot, [data-edit-target], a, [onclick], [role="button"] { touch-action: manipulation; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
@@ -143,6 +143,18 @@
   }
   #app { max-width:720px; margin:0 auto; padding:14px; display:grid; grid-template-columns:1fr 220px; gap:10px; }
   #scene-frame { grid-column:1/3; background:var(--panel); border:2px solid var(--rule); aspect-ratio: 320/200; position:relative; overflow:hidden; }
+  /* Scene transition wipe: solid black overlay starts opaque (covering the freshly
+     rendered art) and fades out, revealing the new scene like a curtain lift. */
+  #scene-frame::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: #000; opacity: 0; z-index: 9;
+  }
+  #scene-frame.scene-wipe::after { animation: sceneWipe 360ms ease-out forwards; }
+  @keyframes sceneWipe {
+    0%   { opacity: 1; }
+    25%  { opacity: 1; }
+    100% { opacity: 0; }
+  }
   #scene-frame.flash-red  { animation:flashRed .6s; }
   #scene-frame.flash-gold { animation:flashGold .6s; }
   @keyframes flashRed  { 0%{box-shadow:inset 0 0 0 9999px #8a0000} 100%{box-shadow:none} }
@@ -171,9 +183,9 @@
   .inv-slot.active { outline: none; }
   .hotspot-label { display:none; }
   #verbs { grid-column:1/3; display:flex; flex-wrap:wrap; gap:4px; background:var(--panel); border:2px solid var(--rule); padding:6px; }
-  .verb { padding:6px 12px; border:1px solid var(--rule); cursor:pointer; user-select:none; letter-spacing:1px; }
+  .verb { padding:6px 12px; border:1px solid var(--rule); cursor:pointer; user-select:none; letter-spacing:1px; font-size: calc(13px * var(--text-scale)); }
   .verb:hover, .verb.active { background:var(--accent); color:#000; }
-  #text-frame { background:var(--panel); border:2px solid var(--rule); padding:8px 10px; height:200px; overflow-y:scroll; font-size:14px; line-height:1.4; scrollbar-color: var(--accent) var(--panel); scrollbar-width: thin; }
+  #text-frame { background:var(--panel); border:2px solid var(--rule); padding:8px 10px; height:200px; overflow-y:scroll; font-size: calc(14px * var(--text-scale)); line-height:1.4; scrollbar-color: var(--accent) var(--panel); scrollbar-width: thin; }
   #text-frame::-webkit-scrollbar { width: 8px; -webkit-appearance: none; }
   #text-frame::-webkit-scrollbar-track { background: var(--panel); border-left: 1px solid var(--rule); }
   #text-frame::-webkit-scrollbar-thumb { background: var(--accent); }
@@ -190,8 +202,8 @@
   .inv-slot.active { outline:2px solid var(--accent); }
   .inv-slot .icon { width:70%; height:70%; }
   .inv-slot .icon svg, .inv-slot .icon img { width:100%; height:100%; }
-  .inv-slot .name { font-size:9px; color:var(--ink); letter-spacing:1px; }
-  #status-bar { grid-column:1/3; display:flex; justify-content:space-between; font-size:11px; color:#8a7a5a; padding:0 4px; letter-spacing:1px; }
+  .inv-slot .name { font-size: calc(9px * var(--text-scale)); color:var(--ink); letter-spacing:1px; }
+  #status-bar { grid-column:1/3; display:flex; justify-content:space-between; font-size: calc(11px * var(--text-scale)); color:#8a7a5a; padding:0 4px; letter-spacing:1px; }
   #cursor-hint { position:fixed; pointer-events:none; background:#000; color:var(--accent); padding:2px 6px; font-size:11px; border:1px solid var(--accent); display:none; z-index:50; transform:translate(8px,8px); }
 
   /* ===== Mobile / narrow viewport — pixel art is the hero, chrome shrinks around it ===== */
@@ -207,24 +219,25 @@
     #verbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; padding: 3px 6px; border-left: none; border-right: none; }
     /* Story text: pad horizontally so first chars aren't kissed by the viewport edge */
     #text-frame, #status-bar { padding-left: 8px; padding-right: 8px; }
-    .verb { padding: 7px 4px; font-size: 12px; letter-spacing: 1px; text-align: center; min-width: 0; border-width: 1px; }
+    .verb { padding: 7px 4px; font-size: calc(13px * var(--text-scale)); letter-spacing: 1px; text-align: center; min-width: 0; border-width: 1px; }
     /* Story text: still readable, just shorter so art stays large */
-    #text-frame { height: 130px; font-size: 16px; line-height: 1.45; padding: 6px 10px; border-left: none; border-right: none; }
+    #text-frame { height: 130px; font-size: calc(16px * var(--text-scale)); line-height: 1.45; padding: 6px 10px; border-left: none; border-right: none; }
     /* Inventory: compact horizontal strip — keep slots short so art dominates */
     #inv-grid { grid-template-columns: repeat(4, 1fr); gap: 3px; padding: 3px 6px; border-left: none; border-right: none; }
     .inv-slot { aspect-ratio: auto; height: 56px; padding: 2px; }
     .inv-slot .icon { width: 60%; height: 60%; }
-    .inv-slot .name { font-size: 8px; letter-spacing: 0.5px; line-height: 1; }
+    .inv-slot .name { font-size: calc(9px * var(--text-scale)); letter-spacing: 0.5px; line-height: 1; }
     /* Status bar: tiny */
-    #status-bar { font-size: 10px; padding: 2px 6px; display: flex; justify-content: space-between; }
+    #status-bar { font-size: calc(11px * var(--text-scale)); padding: 2px 6px; display: flex; justify-content: space-between; }
     /* Title screen */
     #title-overlay { font-size: 22px; letter-spacing: 2px; padding: 16px; gap: 16px; }
     #title-aric { width: 110px; height: 110px; }
     /* Music controls — out of the way */
     #music-controls { padding: 4px 6px; top: 4px; right: 4px; }
     #music-toggle { width: 26px; height: 26px; font-size: 14px; line-height: 24px; }
-    #music-volume { width: 70px; height: 14px; }
-    #text-size { width: 56px; height: 14px; }
+    #music-controls { flex-wrap: wrap; max-width: 60vw; gap: 4px 6px; }
+    #music-volume { width: 100px; height: 16px; }
+    #text-size { width: 110px; height: 16px; }
     #text-size-label { font-size: 12px; padding-left: 3px; }
     #portrait { width: 32%; max-width: 110px; bottom: 4px; right: 4px; }
     #gameover-text .go-title { font-size: 30px; letter-spacing: 5px; }
@@ -268,7 +281,7 @@
   <div id="title-overlay">
     <img id="title-aric" src="assets/sir_aric.png" alt="" onerror="this.style.display='none'">
     <div id="title-text">— THE PALADIN'S REVELATION —<br><span class="hint">(click to begin)</span></div>
-    <div id="title-version">v0.841</div>
+    <div id="title-version">v0.842</div>
   </div>
   <div id="app">
     <div id="scene-frame">
@@ -290,7 +303,7 @@
     <button id="music-toggle" title="Mute / unmute music">♪</button>
     <input id="music-volume" type="range" min="0" max="100" value="55" title="Music volume">
     <span id="text-size-label" title="Story text size">A</span>
-    <input id="text-size" type="range" min="12" max="22" value="16" title="Story text size">
+    <input id="text-size" type="range" min="80" max="160" value="100" title="Text size (all UI text)">
   </div>
 
   <!-- Generated asset manifest (overwritten by pipeline/generate.mjs).  Loads first so game.js can detect what's available. -->

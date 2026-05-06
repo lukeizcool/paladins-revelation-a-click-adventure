@@ -173,17 +173,31 @@ let _skipCurrent = false;
 
 // Subtle typewriter click: short noise burst through a bandpass filter, routed
 // through the master music gain so the volume slider applies to it too.
+// Quill-scratch SFX — short pink-ish noise burst with a wide bandpass so it
+// reads as "writing" rather than a synthetic tick. Routed through master gain.
 function typeClick() {
   const ctx = getCtx();
   if (!ctx || !_masterGain) return;
+  resumeCtx();
   try {
-    const len = 220;
+    const len = Math.floor(ctx.sampleRate * 0.030); // ~30ms grain
     const buf = ctx.createBuffer(1, len, ctx.sampleRate);
     const data = buf.getChannelData(0);
-    for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2);
+    // Soft pink-ish noise with fast attack and quadratic decay.
+    let last = 0;
+    const attack = 60;
+    for (let i = 0; i < len; i++) {
+      const white = Math.random() * 2 - 1;
+      last = (last + 0.025 * white) / 1.025;
+      const env = i < attack ? i / attack : Math.pow(1 - (i - attack) / (len - attack), 1.6);
+      data[i] = last * env * 6;
+    }
     const src = ctx.createBufferSource(); src.buffer = buf;
-    const filt = ctx.createBiquadFilter(); filt.type = "bandpass"; filt.frequency.value = 1500 + Math.random() * 600; filt.Q.value = 1.8;
-    const g = ctx.createGain(); g.gain.value = 0.05;
+    const filt = ctx.createBiquadFilter();
+    filt.type = "bandpass";
+    filt.frequency.value = 2200 + Math.random() * 1400;
+    filt.Q.value = 0.8;
+    const g = ctx.createGain(); g.gain.value = 0.55;
     src.connect(filt); filt.connect(g); g.connect(_masterGain);
     src.start();
   } catch {}
@@ -978,11 +992,21 @@ function stopMusic() {
 });
 
 // Hook into existing game flow without rewiring callers.
+let _lastRenderedScene = null;
 const _origRenderScene = renderScene;
 renderScene = function () {
+  const newKey = state.scene;
+  const sceneChanged = _lastRenderedScene && _lastRenderedScene !== newKey;
   _origRenderScene();
-  const sceneKey = state.scene;
-  const trackKey = SCENE_TRACK[sceneKey];
+  _lastRenderedScene = newKey;
+  // Brief fade-through-dark wipe whenever the scene KEY changes (skipped on
+  // same-scene refreshes like sword-pickup art swaps so we don't flash needlessly).
+  if (sceneChanged) {
+    $sceneFrame.classList.remove("scene-wipe");
+    void $sceneFrame.offsetWidth; // force reflow so the animation restarts
+    $sceneFrame.classList.add("scene-wipe");
+  }
+  const trackKey = SCENE_TRACK[newKey];
   if (trackKey) playTrack(trackKey);
 };
 
@@ -1017,13 +1041,14 @@ $musicVolume.addEventListener("input", () => {
   applyAudioSettings();
 });
 
-// Text size slider — persists across sessions
+// Text size slider — drives a global --text-scale CSS var so every UI text
+// element scales uniformly (story, verbs, status, inventory names, etc.).
 const $textSize = document.getElementById("text-size");
-const _savedTextSize = parseInt(localStorage.getItem("paladin.textSize") || "16", 10);
-$textSize.value = _savedTextSize;
-$text.style.fontSize = _savedTextSize + "px";
+const _savedTextScale = parseInt(localStorage.getItem("paladin.textScale") || "100", 10);
+$textSize.value = _savedTextScale;
+document.documentElement.style.setProperty("--text-scale", (_savedTextScale / 100).toString());
 $textSize.addEventListener("input", () => {
-  const px = +$textSize.value;
-  $text.style.fontSize = px + "px";
-  localStorage.setItem("paladin.textSize", String(px));
+  const pct = +$textSize.value;
+  document.documentElement.style.setProperty("--text-scale", (pct / 100).toString());
+  localStorage.setItem("paladin.textScale", String(pct));
 });
