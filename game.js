@@ -201,6 +201,7 @@ function selectVerb(v) {
   }
   renderVerbs();
   updateStatus();
+  $sceneFrame.classList.toggle("verb-active", !!state.verb);
 }
 
 function updateStatus() {
@@ -901,4 +902,15 @@ $musicVolume.addEventListener("input", () => {
   localStorage.setItem("paladin.vol", audio.target);
   localStorage.setItem("paladin.mute", "0");
   applyAudioSettings();
+});
+
+// Text size slider — persists across sessions
+const $textSize = document.getElementById("text-size");
+const _savedTextSize = parseInt(localStorage.getItem("paladin.textSize") || "16", 10);
+$textSize.value = _savedTextSize;
+$text.style.fontSize = _savedTextSize + "px";
+$textSize.addEventListener("input", () => {
+  const px = +$textSize.value;
+  $text.style.fontSize = px + "px";
+  localStorage.setItem("paladin.textSize", String(px));
 });
