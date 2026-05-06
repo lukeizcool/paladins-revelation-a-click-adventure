@@ -757,29 +757,69 @@ const audio = {
 
 function effectiveVol() { return audio.muted ? 0 : audio.target; }
 
+// iOS Safari ignores HTMLMediaElement.volume — route through Web Audio GainNodes instead.
+// Master gain = volume slider; per-track gain = crossfade.
+let _ctx, _masterGain;
+function getCtx() {
+  if (_ctx) return _ctx;
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx) return null;
+  _ctx = new Ctx();
+  _masterGain = _ctx.createGain();
+  _masterGain.gain.value = effectiveVol();
+  _masterGain.connect(_ctx.destination);
+  return _ctx;
+}
+function resumeCtx() { if (_ctx && _ctx.state === "suspended") _ctx.resume().catch(() => {}); }
+function attachTrack(el) {
+  const ctx = getCtx();
+  if (!ctx) return null;
+  try {
+    const src = ctx.createMediaElementSource(el);
+    const g = ctx.createGain(); g.gain.value = 0;
+    src.connect(g); g.connect(_masterGain);
+    return g;
+  } catch { return null; }
+}
+// Resume audio context on first user gesture (iOS requirement)
+["click", "touchend", "keydown"].forEach(ev =>
+  window.addEventListener(ev, resumeCtx, { once: false, passive: true })
+);
+
 let _activeFade = null;
 function playTrack(key) {
   if (!key || audio.key === key) return;
-  // Cancel any in-flight crossfade and immediately kill its outgoing track,
-  // so rapid playTrack() calls can't leave layered audio behind.
   if (_activeFade) {
     _activeFade.cancelled = true;
     if (_activeFade.prev) { try { _activeFade.prev.pause(); _activeFade.prev.src = ""; } catch {} }
   }
   const next = new Audio(TRACKS[key]);
-  next.loop = true; next.volume = 0;
+  next.loop = true;
+  next._gain = attachTrack(next);
+  // Fallback: if Web Audio unavailable, drive element volume directly.
+  if (!next._gain) next.volume = 0;
+  resumeCtx();
   next.play().catch(() => {});
   const prev = audio.current;
   audio.current = next; audio.key = key;
   const fade = { prev, cancelled: false };
   _activeFade = fade;
   const start = performance.now(), DUR = 1200;
-  const startVol = prev ? prev.volume : 0;
+  const startVol = prev ? (prev._gain ? prev._gain.gain.value : prev.volume) : 0;
+  const setVol = (el, v) => {
+    if (el._gain) el._gain.gain.value = v;
+    else el.volume = v;
+  };
   const tick = (t) => {
     if (fade.cancelled) return;
     const k = Math.min(1, (t - start) / DUR);
-    next.volume = effectiveVol() * k;
-    if (prev) prev.volume = Math.max(0, startVol * (1 - k));
+    // Master gain handles muted/volume; track gain only handles fade ratio when using Web Audio.
+    if (next._gain) setVol(next, k);
+    else setVol(next, effectiveVol() * k);
+    if (prev) {
+      if (prev._gain) setVol(prev, startVol * (1 - k));
+      else setVol(prev, Math.max(0, startVol * (1 - k)));
+    }
     if (k < 1) requestAnimationFrame(tick);
     else {
       if (prev) { try { prev.pause(); prev.src = ""; } catch {} }
@@ -790,7 +830,8 @@ function playTrack(key) {
 }
 
 function applyAudioSettings() {
-  if (audio.current) audio.current.volume = effectiveVol();
+  if (_masterGain) _masterGain.gain.value = effectiveVol();
+  else if (audio.current) audio.current.volume = effectiveVol();
   const btn = document.getElementById("music-toggle");
   if (btn) btn.classList.toggle("muted", audio.muted);
 }
