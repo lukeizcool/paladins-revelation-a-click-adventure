@@ -9,12 +9,12 @@
   html,body { margin:0; padding:0; background:#000; color:var(--ink); font-family: "Times New Roman", serif; touch-action: manipulation; -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
   *, *::before, *::after { box-sizing: border-box; }
   button, .hotspot, .verb, .inv-slot, [data-edit-target], a, [onclick], [role="button"] { touch-action: manipulation; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
-  #title-overlay { position:fixed; inset:0; background:#000; color:var(--accent); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; z-index:99; cursor:pointer; font-size:28px; letter-spacing:4px; transition:opacity .6s; }
+  #title-overlay { position:fixed; inset:0; background:#000; color:var(--accent); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; z-index:99; cursor:pointer; font-size: calc(28px * var(--text-scale)); letter-spacing:4px; transition:opacity .6s; }
   #title-overlay.gone { opacity:0; pointer-events:none; }
   #title-actions { display:flex; align-items:center; gap:14px; margin-top:4px; }
   #title-enter {
     background:transparent; color:var(--accent); border:2px solid var(--accent);
-    padding:10px 28px; font-family:"Times New Roman",serif; font-size:18px;
+    padding:10px 28px; font-family:"Times New Roman",serif; font-size: calc(18px * var(--text-scale));
     letter-spacing:6px; cursor:pointer; transition:all .25s ease;
     text-shadow: 0 0 8px rgba(255,204,64,0.6), 0 0 16px rgba(201,162,74,0.4);
     box-shadow: 0 0 12px rgba(201,162,74,0.25), inset 0 0 12px rgba(201,162,74,0.1);
@@ -29,8 +29,8 @@
   #title-music.muted { color:#5a4a30; border-color:#5a4a30; text-shadow:none; }
   #title-aric { width:160px; height:160px; image-rendering:pixelated; filter: drop-shadow(0 0 12px rgba(201,162,74,0.4)); }
   #title-text { text-align:center; text-shadow: 0 0 8px rgba(255,204,64,0.7), 0 0 18px rgba(201,162,74,0.5), 0 0 32px rgba(201,162,74,0.3); animation: titleGlow 3.2s ease-in-out infinite; }
-  #title-text .hint { font-size:13px; letter-spacing:2px; color:#8a7a5a; display:block; margin-top:8px; text-shadow: 0 0 6px rgba(201,162,74,0.4); }
-  #title-version { position:absolute; bottom:14px; right:18px; font-size:12px; letter-spacing:2px; color:#5a4a30; font-family:"Courier New",monospace; }
+  #title-text .hint { font-size: calc(13px * var(--text-scale)); letter-spacing:2px; color:#8a7a5a; display:block; margin-top:8px; text-shadow: 0 0 6px rgba(201,162,74,0.4); }
+  #title-version { position:absolute; bottom:14px; right:18px; font-size: calc(12px * var(--text-scale)); letter-spacing:2px; color:#5a4a30; font-family:"Courier New",monospace; }
   @keyframes titleGlow { 0%,100% { text-shadow: 0 0 8px rgba(255,204,64,0.7), 0 0 18px rgba(201,162,74,0.5), 0 0 32px rgba(201,162,74,0.3); } 50% { text-shadow: 0 0 12px rgba(255,224,128,0.9), 0 0 28px rgba(255,204,64,0.7), 0 0 48px rgba(201,162,74,0.5); } }
 
   /* ===== Game over overlay ===== */
@@ -237,7 +237,7 @@
     /* Status bar: tiny */
     #status-bar { font-size: calc(11px * var(--text-scale)); padding: 2px 6px; display: flex; justify-content: space-between; }
     /* Title screen */
-    #title-overlay { font-size: 22px; letter-spacing: 2px; padding: 16px; gap: 16px; }
+    #title-overlay { font-size: calc(22px * var(--text-scale)); letter-spacing: 2px; padding: 16px; gap: 16px; }
     #title-aric { width: 110px; height: 110px; }
     /* Music controls — out of the way */
     #music-controls { padding: 4px 6px; top: 4px; right: 4px; }
@@ -288,7 +288,7 @@
   <div id="title-overlay">
     <img id="title-aric" src="assets/sir_aric.png" alt="" onerror="this.style.display='none'">
     <div id="title-text">— THE PALADIN'S REVELATION —<br><span class="hint">(click to begin)</span></div>
-    <div id="title-version">v0.843</div>
+    <div id="title-version">v0.844</div>
   </div>
   <div id="app">
     <div id="scene-frame">
