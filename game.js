@@ -151,6 +151,7 @@ const $cursorHint = document.getElementById("cursor-hint");
 const $titleOverlay = document.getElementById("title-overlay");
 
 // ===== Narrate helpers =====
+let _firstNewNarrate = null;
 function narrate(text, cls = "") {
   const p = document.createElement("p");
   p.className = "narrate" + (cls ? " " + cls : "");
@@ -158,7 +159,18 @@ function narrate(text, cls = "") {
   const html = text.replace(/\b([A-Z][A-Z'’]{2,}(?:\s+[A-Z][A-Z'’]{2,})*)\b/g, '<b>$1</b>');
   p.innerHTML = html;
   $text.appendChild(p);
-  $text.scrollTop = $text.scrollHeight;
+  // Once per synchronous batch, after layout settles, scroll so the first new paragraph
+  // sits at the top of the text-frame — user reads new content from the start.
+  if (!_firstNewNarrate) {
+    _firstNewNarrate = p;
+    requestAnimationFrame(() => {
+      const target = _firstNewNarrate;
+      _firstNewNarrate = null;
+      if (target && target.isConnected) {
+        $text.scrollTop = Math.max(0, target.offsetTop - $text.offsetTop);
+      }
+    });
+  }
 }
 
 function cmdLine(verb, obj) {
