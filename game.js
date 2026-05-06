@@ -274,6 +274,8 @@ function renderInventory() {
     const slot = document.createElement("div");
     if (!item) {
       slot.className = "inv-slot empty";
+      slot.style.touchAction = "manipulation";
+      slot.onclick = () => {};
     } else {
       slot.className = "inv-slot" + (state.verbObject === item ? " active" : "");
       const havePng = (window.PIXELLAB_ASSETS || []).includes(item);
