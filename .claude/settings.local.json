@@ -32,7 +32,8 @@
       "Bash(cp \"/c/Users/lukeg/OneDrive/Desktop/songs/Ending.mp3\" \"/c/Users/lukeg/OneDrive/ThePaladinsRevelation-Click/assets/audio/ending.mp3\")",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(xargs -I {} git show {} --name-only --pretty=oneline)"
     ]
   }
 }

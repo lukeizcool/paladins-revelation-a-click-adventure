@@ -142,7 +142,7 @@
     #scene-frame, #verbs, #text-frame, #inv-grid, #status-bar { grid-column: 1 / -1; width: 100%; }
     /* Scene art: full-bleed, dominates the screen */
     #scene-frame { border: none; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-    #scene-title { font-size: 11px; }
+    #scene-title { display: none; }
     /* Verbs: 4×2 grid so all 8 always fit cleanly without overflow */
     #verbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; padding: 3px 4px; border-left: none; border-right: none; }
     .verb { padding: 7px 4px; font-size: 12px; letter-spacing: 1px; text-align: center; min-width: 0; border-width: 1px; }
@@ -204,7 +204,7 @@
   <div id="title-overlay">
     <img id="title-aric" src="assets/sir_aric.png" alt="" onerror="this.style.display='none'">
     <div id="title-text">— THE PALADIN'S REVELATION —<br><span class="hint">(click to begin)</span></div>
-    <div id="title-version">v0.835</div>
+    <div id="title-version">v0.836</div>
   </div>
   <div id="app">
     <div id="scene-frame">
