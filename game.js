@@ -172,7 +172,9 @@ function renderVerbs() {
     const b = document.createElement("div");
     b.className = "verb" + (state.verb === v ? " active" : "");
     b.textContent = v;
-    b.onclick = () => selectVerb(v);
+    b.style.touchAction = "manipulation";
+    b.addEventListener("pointerup", (e) => { e.preventDefault(); selectVerb(v); });
+    b.addEventListener("click", (e) => e.preventDefault());
     $verbs.appendChild(b);
   });
 }
