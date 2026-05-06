@@ -132,8 +132,15 @@
     width: 90px; height: 14px; accent-color: var(--accent);
     cursor: pointer; touch-action: auto;
   }
-  #text-size { width: 70px; }
-  #text-size-label { color: var(--accent); font-size: 14px; letter-spacing: 1px; padding-left: 4px; border-left: 1px solid var(--rule); margin-left: 2px; }
+  /* Text-size widget: mirror of music-controls but anchored top-left */
+  #text-controls {
+    position: fixed; top: 8px; left: 8px;
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(10,8,6,0.85); border: 1px solid var(--rule);
+    padding: 4px 8px; z-index: 150;
+  }
+  #text-size { width: 90px; }
+  #text-size-label { color: var(--accent); font-size: 14px; letter-spacing: 1px; }
 
   #edit-readout {
     position: fixed; bottom: 8px; left: 8px;
@@ -235,10 +242,10 @@
     /* Music controls — out of the way */
     #music-controls { padding: 4px 6px; top: 4px; right: 4px; }
     #music-toggle { width: 26px; height: 26px; font-size: 14px; line-height: 24px; }
-    #music-controls { flex-wrap: wrap; max-width: 60vw; gap: 4px 6px; }
-    #music-volume { width: 100px; height: 16px; }
-    #text-size { width: 110px; height: 16px; }
-    #text-size-label { font-size: 12px; padding-left: 3px; }
+    #music-volume { width: 90px; height: 16px; }
+    #text-controls { padding: 4px 6px; top: 4px; left: 4px; }
+    #text-size { width: 90px; height: 16px; }
+    #text-size-label { font-size: 12px; }
     #portrait { width: 32%; max-width: 110px; bottom: 4px; right: 4px; }
     #gameover-text .go-title { font-size: 30px; letter-spacing: 5px; }
     #gameover-text .go-msg { font-size: 16px; }
@@ -281,7 +288,7 @@
   <div id="title-overlay">
     <img id="title-aric" src="assets/sir_aric.png" alt="" onerror="this.style.display='none'">
     <div id="title-text">— THE PALADIN'S REVELATION —<br><span class="hint">(click to begin)</span></div>
-    <div id="title-version">v0.842</div>
+    <div id="title-version">v0.843</div>
   </div>
   <div id="app">
     <div id="scene-frame">
@@ -302,7 +309,9 @@
   <div id="music-controls">
     <button id="music-toggle" title="Mute / unmute music">♪</button>
     <input id="music-volume" type="range" min="0" max="100" value="55" title="Music volume">
-    <span id="text-size-label" title="Story text size">A</span>
+  </div>
+  <div id="text-controls">
+    <span id="text-size-label" title="Text size">A</span>
     <input id="text-size" type="range" min="80" max="160" value="100" title="Text size (all UI text)">
   </div>
 

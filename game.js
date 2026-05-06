@@ -173,35 +173,7 @@ let _skipCurrent = false;
 
 // Subtle typewriter click: short noise burst through a bandpass filter, routed
 // through the master music gain so the volume slider applies to it too.
-// Quill-scratch SFX — short pink-ish noise burst with a wide bandpass so it
-// reads as "writing" rather than a synthetic tick. Routed through master gain.
-function typeClick() {
-  const ctx = getCtx();
-  if (!ctx || !_masterGain) return;
-  resumeCtx();
-  try {
-    const len = Math.floor(ctx.sampleRate * 0.030); // ~30ms grain
-    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
-    const data = buf.getChannelData(0);
-    // Soft pink-ish noise with fast attack and quadratic decay.
-    let last = 0;
-    const attack = 60;
-    for (let i = 0; i < len; i++) {
-      const white = Math.random() * 2 - 1;
-      last = (last + 0.025 * white) / 1.025;
-      const env = i < attack ? i / attack : Math.pow(1 - (i - attack) / (len - attack), 1.6);
-      data[i] = last * env * 6;
-    }
-    const src = ctx.createBufferSource(); src.buffer = buf;
-    const filt = ctx.createBiquadFilter();
-    filt.type = "bandpass";
-    filt.frequency.value = 2200 + Math.random() * 1400;
-    filt.Q.value = 0.8;
-    const g = ctx.createGain(); g.gain.value = 0.55;
-    src.connect(filt); filt.connect(g); g.connect(_masterGain);
-    src.start();
-  } catch {}
-}
+// (Typewriter SFX removed — typewriter is silent.)
 
 // Reveal HTML char-by-char. Tag tokens are emitted whole so <b>...</b> isn't half-rendered.
 function typewrite(p, html, speed) {
@@ -216,7 +188,6 @@ function typewrite(p, html, speed) {
     }
     let out = "";
     let k = 0;
-    let lastClick = 0;
     function step() {
       if (_skipCurrent) { p.innerHTML = html; resolve(); return; }
       if (k >= tokens.length) { resolve(); return; }
@@ -227,8 +198,7 @@ function typewrite(p, html, speed) {
         out += ch;
         p.innerHTML = out;
         // Click on visible non-space chars, throttled so it doesn't crackle
-        const now = performance.now();
-        if (/\S/.test(ch) && now - lastClick > 28) { typeClick(); lastClick = now; }
+        // (no SFX)
       }
       if (k < tokens.length) setTimeout(step, speed);
       else resolve();
