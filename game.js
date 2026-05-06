@@ -152,12 +152,80 @@ const $titleOverlay = document.getElementById("title-overlay");
 
 // ===== Narrate helpers =====
 let _firstNewNarrate = null;
+const _typeQueue = [];
+let _typing = false;
+let _skipCurrent = false;
+
+// Subtle typewriter click: short noise burst through a bandpass filter, routed
+// through the master music gain so the volume slider applies to it too.
+function typeClick() {
+  const ctx = getCtx();
+  if (!ctx || !_masterGain) return;
+  try {
+    const len = 220;
+    const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+    const data = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2);
+    const src = ctx.createBufferSource(); src.buffer = buf;
+    const filt = ctx.createBiquadFilter(); filt.type = "bandpass"; filt.frequency.value = 1500 + Math.random() * 600; filt.Q.value = 1.8;
+    const g = ctx.createGain(); g.gain.value = 0.05;
+    src.connect(filt); filt.connect(g); g.connect(_masterGain);
+    src.start();
+  } catch {}
+}
+
+// Reveal HTML char-by-char. Tag tokens are emitted whole so <b>...</b> isn't half-rendered.
+function typewrite(p, html, speed) {
+  return new Promise((resolve) => {
+    const tokens = [];
+    for (let i = 0; i < html.length;) {
+      if (html[i] === "<") {
+        const j = html.indexOf(">", i);
+        tokens.push(html.slice(i, j + 1));
+        i = j + 1;
+      } else { tokens.push(html[i]); i++; }
+    }
+    let out = "";
+    let k = 0;
+    let lastClick = 0;
+    function step() {
+      if (_skipCurrent) { p.innerHTML = html; resolve(); return; }
+      if (k >= tokens.length) { resolve(); return; }
+      // emit one visible char (skipping through any tag tokens that come with it)
+      while (k < tokens.length && tokens[k].startsWith("<")) { out += tokens[k++]; }
+      if (k < tokens.length) {
+        const ch = tokens[k++];
+        out += ch;
+        p.innerHTML = out;
+        // Click on visible non-space chars, throttled so it doesn't crackle
+        const now = performance.now();
+        if (/\S/.test(ch) && now - lastClick > 28) { typeClick(); lastClick = now; }
+      }
+      if (k < tokens.length) setTimeout(step, speed);
+      else resolve();
+    }
+    step();
+  });
+}
+
+function drainTypeQueue() {
+  if (_typing) return;
+  const job = _typeQueue.shift();
+  if (!job) return;
+  _typing = true;
+  _skipCurrent = false;
+  // Commands and system feedback render instantly; story prose types in.
+  const instant = /\b(command|system)\b/.test(job.cls || "");
+  const speed = instant ? 0 : 14;
+  const run = instant
+    ? Promise.resolve().then(() => { job.p.innerHTML = job.html; })
+    : typewrite(job.p, job.html, speed);
+  run.then(() => { _typing = false; drainTypeQueue(); });
+}
+
 function narrate(text, cls = "") {
   const p = document.createElement("p");
   p.className = "narrate" + (cls ? " " + cls : "");
-  // Auto-embolden ALL-CAPS WORDS (Shadowgate convention)
-  const html = text.replace(/\b([A-Z][A-Z'’]{2,}(?:\s+[A-Z][A-Z'’]{2,})*)\b/g, '<b>$1</b>');
-  p.innerHTML = html;
   $text.appendChild(p);
   // Once per synchronous batch, after layout settles, scroll so the first new paragraph
   // sits at the top of the text-frame — user reads new content from the start.
@@ -171,7 +239,16 @@ function narrate(text, cls = "") {
       }
     });
   }
+  // Auto-embolden ALL-CAPS WORDS (Shadowgate convention)
+  const html = text.replace(/\b([A-Z][A-Z'’]{2,}(?:\s+[A-Z][A-Z'’]{2,})*)\b/g, '<b>$1</b>');
+  _typeQueue.push({ p, html, cls });
+  drainTypeQueue();
 }
+
+// Tap inside the story frame to skip the current typewriter line.
+document.getElementById("text-frame").addEventListener("click", () => {
+  if (_typing) _skipCurrent = true;
+});
 
 function cmdLine(verb, obj) {
   narrate(`> ${verb}${obj ? " " + obj.toUpperCase() : ""}`, "command");
