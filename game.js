@@ -305,10 +305,10 @@ function selectVerb(v) {
   }
   renderVerbs();
   updateStatus();
-  $sceneFrame.classList.toggle("verb-active", !!state.verb);
 }
 
 function updateStatus() {
+  $sceneFrame.classList.toggle("verb-active", !!state.verb);
   if (state.ended) {
     $statusRight.textContent = "The tale is ended. Refresh to play anew.";
     $statusRight.className = "right";
@@ -326,6 +326,10 @@ function updateStatus() {
 // ===== Scene rendering =====
 function renderScene() {
   hideHint(); // hotspot mouseleave never fires if the element is removed mid-hover
+  // A scene change always cancels any armed verb so marching ants don't persist.
+  state.verb = null;
+  state.verbObject = null;
+  $sceneFrame.classList.remove("verb-active");
   const s = window.SCENES[state.scene];
   $sceneTitle.textContent = s.title;
   $statusLeft.textContent = s.title;
