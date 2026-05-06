@@ -6,7 +6,8 @@
 <title>The Paladin's Revelation</title>
 <style>
   :root { --ink:#d4c49a; --bg:#0a0806; --panel:#1a1410; --rule:#3a2a1a; --accent:#c9a24a; --red:#8a1818; --gold:#ffcc40; }
-  html,body { margin:0; padding:0; background:#000; color:var(--ink); font-family: "Times New Roman", serif; }
+  html,body { margin:0; padding:0; background:#000; color:var(--ink); font-family: "Times New Roman", serif; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  button, .hotspot, [data-edit-target], a, [onclick], [role="button"] { touch-action: manipulation; }
   #title-overlay { position:fixed; inset:0; background:#000; color:var(--accent); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; z-index:99; cursor:pointer; font-size:28px; letter-spacing:4px; transition:opacity .6s; }
   #title-overlay.gone { opacity:0; pointer-events:none; }
   #title-actions { display:flex; align-items:center; gap:14px; margin-top:4px; }

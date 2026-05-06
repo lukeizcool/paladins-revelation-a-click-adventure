@@ -29,7 +29,10 @@
       "Bash(cp \"/c/Users/lukeg/OneDrive/Desktop/songs/Title Screen.mp3\" \"/c/Users/lukeg/OneDrive/ThePaladinsRevelation-Click/assets/audio/title.mp3\")",
       "Bash(cp \"/c/Users/lukeg/OneDrive/Desktop/songs/Adventuring.mp3\" \"/c/Users/lukeg/OneDrive/ThePaladinsRevelation-Click/assets/audio/adventure.mp3\")",
       "Bash(cp \"/c/Users/lukeg/OneDrive/Desktop/songs/Final Showdown.mp3\" \"/c/Users/lukeg/OneDrive/ThePaladinsRevelation-Click/assets/audio/showdown.mp3\")",
-      "Bash(cp \"/c/Users/lukeg/OneDrive/Desktop/songs/Ending.mp3\" \"/c/Users/lukeg/OneDrive/ThePaladinsRevelation-Click/assets/audio/ending.mp3\")"
+      "Bash(cp \"/c/Users/lukeg/OneDrive/Desktop/songs/Ending.mp3\" \"/c/Users/lukeg/OneDrive/ThePaladinsRevelation-Click/assets/audio/ending.mp3\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }
