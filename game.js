@@ -135,6 +135,21 @@ function applySceneFx(sceneKey) {
     img.dataset.editTarget = `SCENE_SPRITES.${sceneKey}.${i}`;
     layer.appendChild(img);
   });
+  // Floating motes / fireflies — spawn whenever the scene has firelit FX
+  const firelit = (SCENE_FX[sceneKey] || []).some(fx => /fx-(candle|firelight|whiteflame)/.test(fx.cls));
+  if (firelit) {
+    for (let i = 0; i < 6; i++) {
+      const m = document.createElement("div");
+      m.className = "fx-mote";
+      const left = 10 + Math.random() * 80;
+      const bottom = 10 + Math.random() * 50;
+      const drift = (Math.random() - 0.5) * 24;
+      const dur = 7 + Math.random() * 5;
+      const delay = -Math.random() * dur;
+      m.style.cssText = `left:${left}%;bottom:${bottom}%;--mx:${drift}px;animation-duration:${dur}s;animation-delay:${delay}s;`;
+      layer.appendChild(m);
+    }
+  }
   if (state.editMode) refreshEditor();
 }
 
@@ -249,6 +264,18 @@ function narrate(text, cls = "") {
 document.getElementById("text-frame").addEventListener("click", () => {
   if (_typing) _skipCurrent = true;
 });
+
+// Idle hint — after ~18s without input, hotspots gently pulse so the player
+// notices what's interactable. Any tap clears it instantly.
+const IDLE_MS = 18000;
+let _idleTimer = null;
+function resetIdle() {
+  $sceneFrame.classList.remove("idle-hint");
+  clearTimeout(_idleTimer);
+  _idleTimer = setTimeout(() => $sceneFrame.classList.add("idle-hint"), IDLE_MS);
+}
+["pointerdown", "keydown"].forEach(ev => window.addEventListener(ev, resetIdle, { passive: true }));
+resetIdle();
 
 function cmdLine(verb, obj) {
   narrate(`> ${verb}${obj ? " " + obj.toUpperCase() : ""}`, "command");
@@ -809,15 +836,20 @@ function dumpSceneEdits() {
   navigator.clipboard?.writeText(json).then(() => narrate(`[edit] ${sceneKey} dumped to console + clipboard`, "system"));
 }
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "`" || e.key === "~") {
-    state.editMode = !state.editMode;
-    renderScene();
-    narrate(state.editMode ? "[edit mode ON] drag boxes to move, drag corner to resize, S to dump JSON, click empty area to log coords" : "[edit mode OFF]", "system");
-  } else if (state.editMode && (e.key === "s" || e.key === "S")) {
-    dumpSceneEdits();
-  }
-});
+// Edit mode is opt-in for development only — gate it behind ?edit=1 (or
+// localStorage flag) so the ~ key doesn't fire in production.
+const EDIT_ENABLED = /[?&]edit=1\b/.test(location.search) || localStorage.getItem("paladin.edit") === "1";
+if (EDIT_ENABLED) {
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "`" || e.key === "~") {
+      state.editMode = !state.editMode;
+      renderScene();
+      narrate(state.editMode ? "[edit mode ON] drag boxes to move, drag corner to resize, S to dump JSON, click empty area to log coords" : "[edit mode OFF]", "system");
+    } else if (state.editMode && (e.key === "s" || e.key === "S")) {
+      dumpSceneEdits();
+    }
+  });
+}
 
 document.getElementById("scene-art").addEventListener("click", (e) => {
   if (!state.editMode) return;

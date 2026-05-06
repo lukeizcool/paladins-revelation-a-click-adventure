@@ -51,6 +51,42 @@
   #gameover-text .go-hint { font-size: 13px; letter-spacing: 2px; color: #8a7a5a; text-shadow: 0 0 6px rgba(201,162,74,0.4); }
   .scene-sprite.anim-bob { animation: bob 1.4s ease-in-out infinite; }
 
+  /* ===== Idle hotspot pulse — gentle hint after the player sits still ===== */
+  @keyframes idlePulse {
+    0%,100% { box-shadow: 0 0 0 0 rgba(201,162,74,0); outline-color: rgba(201,162,74,0.0); }
+    50%     { box-shadow: 0 0 12px 2px rgba(255,204,64,0.45); outline-color: rgba(201,162,74,0.7); }
+  }
+  #scene-frame.idle-hint .hotspot {
+    outline: 1px dashed transparent;
+    animation: idlePulse 2.4s ease-in-out infinite;
+  }
+
+  /* ===== Floating motes / fireflies (drifting upward in firelit scenes) ===== */
+  .fx-mote {
+    position: absolute; width: 2px; height: 2px; border-radius: 50%;
+    background: #ffd58a; box-shadow: 0 0 6px 1px #ffb040;
+    pointer-events: none; opacity: 0;
+    animation: moteDrift 9s linear infinite;
+  }
+  @keyframes moteDrift {
+    0%   { transform: translate(0, 0) scale(0.7); opacity: 0; }
+    15%  { opacity: 0.85; }
+    85%  { opacity: 0.7; }
+    100% { transform: translate(var(--mx, 8px), -120%) scale(1.1); opacity: 0; }
+  }
+
+  /* ===== Game-over title shake (ominous arrival) ===== */
+  @keyframes goShake {
+    0%   { transform: translate(0,0) rotate(0); }
+    15%  { transform: translate(-3px,2px) rotate(-0.6deg); }
+    30%  { transform: translate(3px,-1px) rotate(0.4deg); }
+    45%  { transform: translate(-2px,-2px) rotate(-0.3deg); }
+    60%  { transform: translate(2px,1px) rotate(0.2deg); }
+    75%  { transform: translate(-1px,2px) rotate(-0.1deg); }
+    100% { transform: translate(0,0) rotate(0); }
+  }
+  #gameover-overlay.shown .go-title { animation: titleGlow 3.2s ease-in-out infinite, goShake 1.1s ease-out 0s 3; }
+
   /* ===== Edit mode (toggle with `~`) ===== */
   #scene-frame.edit-mode .hotspot,
   #scene-frame.edit-mode [data-edit-target] {
@@ -232,7 +268,7 @@
   <div id="title-overlay">
     <img id="title-aric" src="assets/sir_aric.png" alt="" onerror="this.style.display='none'">
     <div id="title-text">— THE PALADIN'S REVELATION —<br><span class="hint">(click to begin)</span></div>
-    <div id="title-version">v0.839</div>
+    <div id="title-version">v0.840</div>
   </div>
   <div id="app">
     <div id="scene-frame">
