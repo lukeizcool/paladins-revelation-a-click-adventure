@@ -166,7 +166,6 @@ const $cursorHint = document.getElementById("cursor-hint");
 const $titleOverlay = document.getElementById("title-overlay");
 
 // ===== Narrate helpers =====
-let _firstNewNarrate = null;
 const _typeQueue = [];
 let _typing = false;
 let _skipCurrent = false;
@@ -197,8 +196,8 @@ function typewrite(p, html, speed) {
         const ch = tokens[k++];
         out += ch;
         p.innerHTML = out;
-        // Click on visible non-space chars, throttled so it doesn't crackle
-        // (no SFX)
+        // Keep the typing edge in view so the latest character is always visible.
+        $text.scrollTop = $text.scrollHeight;
       }
       if (k < tokens.length) setTimeout(step, speed);
       else resolve();
@@ -226,18 +225,8 @@ function narrate(text, cls = "") {
   const p = document.createElement("p");
   p.className = "narrate" + (cls ? " " + cls : "");
   $text.appendChild(p);
-  // Once per synchronous batch, after layout settles, scroll so the first new paragraph
-  // sits at the top of the text-frame — user reads new content from the start.
-  if (!_firstNewNarrate) {
-    _firstNewNarrate = p;
-    requestAnimationFrame(() => {
-      const target = _firstNewNarrate;
-      _firstNewNarrate = null;
-      if (target && target.isConnected) {
-        $text.scrollTop = Math.max(0, target.offsetTop - $text.offsetTop);
-      }
-    });
-  }
+  // Always pin to the bottom on append so the freshest text is in view.
+  $text.scrollTop = $text.scrollHeight;
   // Auto-embolden ALL-CAPS WORDS (Shadowgate convention)
   const html = text.replace(/\b([A-Z][A-Z'’]{2,}(?:\s+[A-Z][A-Z'’]{2,})*)\b/g, '<b>$1</b>');
   _typeQueue.push({ p, html, cls });
