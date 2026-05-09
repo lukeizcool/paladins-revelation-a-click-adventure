@@ -559,13 +559,12 @@ function handleItemClick(item) {
     if (!state.flags.readLetter) {
       state.flags.readLetter = true;
       narrate("Thou breakest thy father's seal at last. The wax cracks like winter ice. The hand within is older and more tremulous than thou rememberest, yet unmistakably thine own father's —");
-      narrate("'Aric — if thou readest this, I have been called back to the mountain. I am not what I seemed. I am not even WHAT I seemed. Do not raise steel against the Wyrm of SKAR'VAEL. The wyrm is thy father.'");
-      narrate("'(Mark also the SCAR upon his brow — a foolish nick thou gave me when thou wert four, swinging mine own gauntlet at thy father's head. We laughed an hour together. I bear it still, in my second shape.)'");
-      narrate("'The ORDER OF DAWN is not what they told thee. Thy brothers obey CHANCELLOR VALEN, not the King. Trust no tabard. Trust no command issued in his name. — Cael.'");
+      narrate("'Aric — if thou readest this, I have been called back to the mountain. I am not myself. I fear I will not return'");
+      narrate("'The ORDER OF DAWN is not what they told thee. Thy brothers obey CHANCELLOR VALEN, not the King. Trust no tabard. Trust no command issued in his name. — Your Father, Edmund.'");
       narrate("Thy hands shake. The letter sits heavy as a stone in thy thought.", "system");
       renderInventory(); // refresh slot styling for the now-opened letter
     } else {
-      narrate("Thou unfoldest the letter again. The scar-jest still smarteth. The warning against the ORDER smarteth more.");
+      narrate("Thou unfoldest the letter again. Thy father's last words — and his warning against the ORDER — sit heavy still.");
     }
     state.verb = null;
     renderVerbs(); updateStatus();
@@ -588,7 +587,7 @@ function describeItem(item) {
   switch (item) {
     case "sword": return "DAWNCLEAVER — thy father's blade. The dragon-and-sun sigil upon its pommel hath always puzzled thee.";
     case "parchment": return state.flags.readLetter
-      ? "Thy father's letter, broken open. The seal lies shattered, the warning of the ORDER OF DAWN — and the small jest about the scar — sit heavy in thy thought."
+      ? "Thy father's letter, broken open. The seal lies shattered. His warning against the ORDER OF DAWN sitteth heavy in thy thought."
       : "A folded letter, sealed in thy father's own wax. Thou hast not yet broken it.";
     case "signet": return "The Chancellor's SIGNET, crusted with the ranger's blood. Proof of orders that should not exist.";
     case "scale": return "A warm scale, red as banked embers. It thrums faintly against thy palm — as though it knew thy heartbeat.";
