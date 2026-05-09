@@ -652,15 +652,14 @@ function tryMove(exitKey) {
       return;
     }
   }
-  // Wood → lair requires EITHER parchment+read OR signet
+  // Wood → lair requires ALL FOUR relics: sword, letter, scale, signet.
   if (state.scene === "wood" && dest === "lair") {
-    if (!state.inventory.includes("parchment") && !state.inventory.includes("signet")) {
-      narrate("A shadow crosseth thy heart. Thou art not yet ready to face what waits above. There is more in this wood to heed.", "system");
-      return;
-    }
-    // Strongly encourage visiting the hollow if they haven't
-    if (!state.flags.visitedHollow && !state.flags.readLetter) {
-      narrate("A white flame flickers in the hollow below. Something in thee saith: thou must see it first.", "system");
+    const required = ["sword", "parchment", "scale", "signet"];
+    const missing = required.filter(it => !state.inventory.includes(it));
+    if (missing.length > 0) {
+      const names = { sword: "thy father's BLADE", parchment: "his sealed LETTER", scale: "the warm SCALE", signet: "the bloodied SIGNET" };
+      const lacking = missing.map(k => names[k] || k).join(", ");
+      narrate(`A shadow crosseth thy heart. Thou art not yet whole — thou lackest ${lacking}. Return when all is in thy keeping.`, "system");
       return;
     }
   }
