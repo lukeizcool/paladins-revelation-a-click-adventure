@@ -396,9 +396,13 @@ function renderInventory() {
       slot.style.touchAction = "manipulation";
       slot.onclick = () => {};
     } else {
+      // "spent" === player has absorbed all the info this item carries:
+      // either LOOKed at it once, or opened the letter.
+      const spent = (state.flags.examined && state.flags.examined[item])
+        || (item === "parchment" && state.flags.readLetter);
       slot.className = "inv-slot"
         + (state.verbObject === item ? " active" : "")
-        + (item === "parchment" && state.flags.readLetter ? " letter-opened" : "");
+        + (spent ? " spent" : "");
       const havePng = (window.PIXELLAB_ASSETS || []).includes(item);
       slot.innerHTML = `<div class="icon"></div><div class="name">${ITEM_NAMES[item] || item}</div>`;
       const iconBox = slot.querySelector(".icon");
@@ -541,7 +545,12 @@ function handleItemClick(item) {
   if (state.verb === "LOOK") {
     cmdLine("LOOK", ITEM_NAMES[item] || item);
     narrate(describeItem(item));
+    // Mark this item as examined — visually we mute its shimmer/glow so the
+    // player knows they've already wrung the info out of it.
+    state.flags.examined = state.flags.examined || {};
+    state.flags.examined[item] = true;
     state.verb = null;
+    renderInventory();
     renderVerbs(); updateStatus();
     return;
   }
