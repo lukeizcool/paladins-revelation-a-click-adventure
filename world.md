@@ -43,12 +43,37 @@ coronation, and it has been forged a great many times.
 
 ## Lineages and houses
 
-- **Vermil** — eldest of the dragon-blooded; said to have signed the first
-  contract in their own blood.
-- **Vasi** — kept the white flame. Ysolde answers to this name when no one
-  else is listening.
-- **Ourovan** — the line that produced wyrm-shapes, scaled and unscaled.
+The dragon-blooded are not all the same kind of dragon-blooded. Three
+houses survived the burning of the chronicles, and each kept a different
+inheritance.
+
+- **Vermil** — eldest of the three. Said to have signed the first contract
+  in their own blood. Their gift is *memory*: they remember every oath the
+  realm has broken. They do not change shape.
+- **Vasi** — kept the white flame. Their gift is *sight*: glass and flame
+  show them what is and what could be. Ysolde answers to this name when no
+  one else is listening. They do not change shape.
+- **Ourovan** — the only line that produced **wyrm-shapes**. And only when
+  the **relics** are gathered. Without the relics, an Ourovan child lives
+  and dies as a man, and the second shape sleeps unawakened in the blood.
   Edmund's mother was Ourovan; Aric does not know it.
+
+### The relics
+
+The change requires four objects, kept across generations and never
+gathered in one hand by accident:
+
+1. A **blade** of the bloodline (Dawncleaver bears the dragon-and-sun
+   sigil for a reason).
+2. A **scale** shed by the previous wyrm — warm to a kinsman's palm.
+3. A **letter** in the wyrm's own hand, sealing the inheritance.
+4. A **signet** of office — proof that the realm itself once acknowledged
+   the line.
+
+Hold all four. Climb the kiln. The change comes whether the bearer wills
+it or not. This is why the gate to Skar'Vael in the game requires the
+full set: not because the wyrm needs slaying, but because Aric is being
+quietly prepared for what his father became.
 
 ## The Ninth Order
 
@@ -63,10 +88,22 @@ finish the wyrm.
 
 ## The Cinder Throne, in plainer words
 
+The kiln at the throne's heart is older than the realm. Long before there
+were kings of Dunhelm, **ancient men were crowned upon this same stone** —
+chieftains of the first peoples, then warlords, then the line that became
+the present house. The kiln remembers all of them. Their melted crowns are
+still in the metal of the current one, somewhere.
+
 Coronations there are short. The crown is poured from the previous king's
-melted regalia and cooled fast enough to wear before the next claimant
-arrives. Some kings have been crowned posthumously — the crown was already
-warm.
+regalia and cooled fast enough to wear before the next claimant arrives.
+Some kings have been crowned posthumously — the crown was already warm.
+
+That a wyrm sleeps in the same mountain is not coincidence. The kiln and
+the wyrm share heat. The Accord of Ash was, in its first form, a covenant
+between the dragon-blooded and the men who borrowed the kiln's fire to
+forge their crowns: *we let you crown yourselves here, and you let the
+wyrm sleep above*. Valen's writ to slay the wyrm breaks that covenant on
+both sides.
 
 ---
 
