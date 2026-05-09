@@ -216,7 +216,12 @@ function drainTypeQueue() {
   const instant = /\b(command|system)\b/.test(job.cls || "");
   const speed = instant ? 0 : 14;
   const run = instant
-    ? Promise.resolve().then(() => { job.p.innerHTML = job.html; })
+    ? Promise.resolve().then(() => {
+        job.p.innerHTML = job.html;
+        // Pin to bottom AFTER the content has been laid out so the scrollHeight
+        // reflects the now-populated paragraph.
+        $text.scrollTop = $text.scrollHeight;
+      })
     : typewrite(job.p, job.html, speed);
   run.then(() => { _typing = false; drainTypeQueue(); });
 }
