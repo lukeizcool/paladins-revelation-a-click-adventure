@@ -742,14 +742,15 @@ function init() {
   updateStatus();
 }
 
-// Two-stage title: first click starts title music + changes hint; second click enters the world.
+// Two-stage title: first click starts title music + relabels the button;
+// second click enters the world.
 let _titlePrimed = false;
 $titleOverlay.addEventListener("click", () => {
   if (!_titlePrimed) {
     _titlePrimed = true;
     playTrack("title");
-    const hint = $titleOverlay.querySelector(".hint");
-    if (hint) hint.textContent = "(click again to enter the world)";
+    const btn = document.getElementById("title-enter");
+    if (btn) btn.textContent = "CLICK TO ENTER";
     return;
   }
   $titleOverlay.classList.add("gone");
