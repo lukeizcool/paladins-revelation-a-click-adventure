@@ -44,6 +44,18 @@
   /* Minor inline link variant — used on the title screen so it stays subordinate to CLICK TO BEGIN */
   .donate-link { color: #8a7a5a; font-size: calc(11px * var(--text-scale)); letter-spacing: 1px; text-decoration: underline dotted; text-underline-offset: 3px; cursor: pointer; transition: color .2s; }
   .donate-link:hover { color: var(--accent); }
+  /* Ending coda — small donate panel for in-scene endings (truth/strike) */
+  #ending-coda {
+    position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    background: rgba(10,8,6,0.92); border: 1px solid var(--accent);
+    padding: 12px 22px; z-index: 100;
+    opacity: 0; pointer-events: none;
+    transition: opacity .8s ease;
+    box-shadow: 0 0 16px rgba(201,162,74,0.3);
+  }
+  #ending-coda.shown { opacity: 1; pointer-events: auto; }
+  #ending-coda .coda-hint { font-size: calc(11px * var(--text-scale)); color: #8a7a5a; letter-spacing: 1px; }
   @keyframes titleGlow { 0%,100% { text-shadow: 0 0 8px rgba(255,204,64,0.7), 0 0 18px rgba(201,162,74,0.5), 0 0 32px rgba(201,162,74,0.3); } 50% { text-shadow: 0 0 12px rgba(255,224,128,0.9), 0 0 28px rgba(255,204,64,0.7), 0 0 48px rgba(201,162,74,0.5); } }
 
   /* ===== Game over overlay ===== */
@@ -308,7 +320,7 @@
     <div id="title-text">— THE PALADIN'S REVELATION —</div>
     <button id="title-enter">♪ CLICK TO BEGIN</button>
     <a class="donate-link" href="https://donate.stripe.com/14AfZi2Dxcrs0wT8La0VO02" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">support the bard</a>
-    <div id="title-version">v0.849</div>
+    <div id="title-version">v0.850</div>
   </div>
   <div id="app">
     <div id="scene-frame">

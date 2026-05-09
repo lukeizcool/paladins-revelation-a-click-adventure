@@ -702,6 +702,7 @@ function doEndingStrike() {
     narrate("THOU ART DEAD", "death");
     narrate("— Thou strucketh without seeing. The Accord of Ash is broken, and the Chancellor taketh the throne. Perhaps, upon another telling, thou shalt look before thou leapest.", "system");
     updateStatus();
+    showEndingCoda();
   } catch (e) { console.error("doEndingStrike failed:", e); narrate("[error: " + e.message + "]", "system"); }
 }
 
@@ -715,7 +716,22 @@ function doEndingTruth() {
     narrate("THE ACCORD IS RENEWED", "victory");
     narrate("— Thou art no longer only a paladin. Thou art thy father's son, and the realm hath need of both.", "system");
     updateStatus();
+    showEndingCoda();
   } catch (e) { console.error("doEndingTruth failed:", e); narrate("[error: " + e.message + "]", "system"); }
+}
+
+// Lightweight donate + restart panel for the in-scene endings (truth/strike).
+// doDeath already pops the full-screen gameover overlay which has its own donate.
+function showEndingCoda() {
+  let ov = document.getElementById("ending-coda");
+  if (!ov) {
+    ov = document.createElement("div");
+    ov.id = "ending-coda";
+    ov.innerHTML = `<a class="donate-btn" href="https://donate.stripe.com/14AfZi2Dxcrs0wT8La0VO02" target="_blank" rel="noopener noreferrer">SUPPORT THE BARD</a><div class="coda-hint">(refresh to play anew)</div>`;
+    document.body.appendChild(ov);
+  }
+  // Delay slightly so the ending text can land first.
+  setTimeout(() => ov.classList.add("shown"), 1400);
 }
 
 // ===== SELF =====
