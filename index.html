@@ -41,6 +41,9 @@
     text-shadow: 0 0 6px rgba(201,162,74,0.4);
   }
   .donate-btn:hover { background: var(--accent); color: #000; text-shadow: none; box-shadow: 0 0 16px rgba(255,204,64,0.5); }
+  /* Minor inline link variant — used on the title screen so it stays subordinate to CLICK TO BEGIN */
+  .donate-link { color: #8a7a5a; font-size: calc(11px * var(--text-scale)); letter-spacing: 1px; text-decoration: underline dotted; text-underline-offset: 3px; cursor: pointer; transition: color .2s; }
+  .donate-link:hover { color: var(--accent); }
   @keyframes titleGlow { 0%,100% { text-shadow: 0 0 8px rgba(255,204,64,0.7), 0 0 18px rgba(201,162,74,0.5), 0 0 32px rgba(201,162,74,0.3); } 50% { text-shadow: 0 0 12px rgba(255,224,128,0.9), 0 0 28px rgba(255,204,64,0.7), 0 0 48px rgba(201,162,74,0.5); } }
 
   /* ===== Game over overlay ===== */
@@ -302,9 +305,10 @@
 <body>
   <div id="title-overlay">
     <img id="title-aric" src="assets/sir_aric.png" alt="" onerror="this.style.display='none'">
-    <div id="title-text">— THE PALADIN'S REVELATION —<br><span class="hint">(click to begin)</span></div>
-    <a class="donate-btn" href="https://donate.stripe.com/14AfZi2Dxcrs0wT8La0VO02" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">SUPPORT THE BARD</a>
-    <div id="title-version">v0.846</div>
+    <div id="title-text">— THE PALADIN'S REVELATION —</div>
+    <button id="title-enter">CLICK TO BEGIN</button>
+    <a class="donate-link" href="https://donate.stripe.com/14AfZi2Dxcrs0wT8La0VO02" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">support the bard</a>
+    <div id="title-version">v0.847</div>
   </div>
   <div id="app">
     <div id="scene-frame">
