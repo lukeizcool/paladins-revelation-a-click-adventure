@@ -696,7 +696,7 @@ function showGameOver(msg) {
   if (!ov) {
     ov = document.createElement("div");
     ov.id = "gameover-overlay";
-    ov.innerHTML = `<div id="gameover-text"><div class="go-title">GAME OVER</div><div class="go-msg"></div><div class="go-hint">(refresh to play anew)</div></div>`;
+    ov.innerHTML = `<div id="gameover-text"><div class="go-title">GAME OVER</div><div class="go-msg"></div><a class="donate-btn" href="https://donate.stripe.com/14AfZi2Dxcrs0wT8La0VO02" target="_blank" rel="noopener noreferrer">SUPPORT THE BARD</a><div class="go-hint">(refresh to play anew)</div></div>`;
     document.body.appendChild(ov);
   }
   ov.querySelector(".go-msg").textContent = msg;
