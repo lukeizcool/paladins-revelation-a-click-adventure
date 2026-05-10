@@ -7,7 +7,7 @@ const ITEM_ICONS = {
 };
 
 const ITEM_NAMES = {
-  sword: "Dawncleaver",
+  sword: "Dawnbreaker",
   parchment: "Letter",
   signet: "Signet",
   scale: "Scale"
@@ -590,7 +590,7 @@ function handleItemClick(item) {
 
 function describeItem(item) {
   switch (item) {
-    case "sword": return "DAWNCLEAVER — thy father's blade. The dragon-and-sun sigil upon its pommel hath always puzzled thee.";
+    case "sword": return "DAWNBREAKER — thy father's blade. The dragon-and-sun sigil upon its pommel hath always puzzled thee.";
     case "parchment": return state.flags.readLetter
       ? "Thy father's letter, broken open. The seal lies shattered. His warning against the ORDER OF DAWN sitteth heavy in thy thought."
       : "A folded letter, sealed in thy father's own wax. Thou hast not yet broken it.";
@@ -613,7 +613,7 @@ function handleUseItemOn(item, target) {
   // Lair: USE sword
   if (state.scene === "lair") {
     if (item === "sword" && target === "dragon") {
-      doDeath("Thou drive Dawncleaver at the dragon's flank. The blade rings against crimson scale — and SHATTERS. The wyrm's eye opens, slow and pitying. A single breath, hot as a forge's heart, and thou art ash upon the gold. The tome warned thee: only the moon-mark upon the brow may be pierced. Thy father's body is unbroken. Thou art the one who burned.");
+      doDeath("Thou drive Dawnbreaker at the dragon's flank. The blade rings against crimson scale — and SHATTERS. The wyrm's eye opens, slow and pitying. A single breath, hot as a forge's heart, and thou art ash upon the gold. The tome warned thee: only the moon-mark upon the brow may be pierced. Thy father's body is unbroken. Thou art the one who burned.");
       return;
     }
     if (item === "sword" && target === "scar") {
@@ -687,7 +687,7 @@ function handleHit(objKey) {
   }
   if (state.scene === "lair") {
     if (objKey === "dragon") {
-      doDeath("Thou strike at the dragon's flank with the full weight of Dawncleaver. The blade rings against crimson scale — and SHATTERS. The wyrm's eye opens, slow and pitying. A single breath, hot as a forge's heart, and thou art ash upon the gold. The tome warned thee: only the moon-mark upon the brow may be pierced. Thy father's body is unbroken. Thou art the one who burned.");
+      doDeath("Thou strike at the dragon's flank with the full weight of Dawnbreaker. The blade rings against crimson scale — and SHATTERS. The wyrm's eye opens, slow and pitying. A single breath, hot as a forge's heart, and thou art ash upon the gold. The tome warned thee: only the moon-mark upon the brow may be pierced. Thy father's body is unbroken. Thou art the one who burned.");
       return;
     }
     if (objKey === "scar") {

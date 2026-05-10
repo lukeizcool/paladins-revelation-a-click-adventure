@@ -8,10 +8,10 @@ window.SCENES = {
     description: "Thou standest within the CHAPEL OF DAWN, where thy vows were first spoken. Dust motes drift in the slanted light. Upon the ALTAR rests thy father's sword, sheathed these twenty years. A stained WINDOW depicts a saint driving his lance through a dragon's heart. A great oaken DOOR leads east to the courtyard. A dusty TOME lies open upon a lectern.",
     objects: {
       altar: { name: "altar", look: "Carved of white stone, worn smooth by centuries of kneeling knights. Thy father's SWORD rests upon it, awaiting a worthy hand." },
-      sword: { name: "sword", look: "The blade is called DAWNCLEAVER. Its pommel bears a sigil: a dragon cradling a sun. Strange heraldry for a dragonslayer.", take: true },
+      sword: { name: "sword", look: "The blade is called DAWNBREAKER. Its pommel bears a sigil: a dragon cradling a sun. Strange heraldry for a dragonslayer.", take: true },
       window: { name: "window", look: "St. Orien the Pure, lance buried in a wyrm's breast — no, look closer. The lance-tip strikes not the heart, but a pale crescent on the dragon's BROW. The saint knew where to aim. Thou hast gazed upon this glass since boyhood. Something in the dragon's painted eye seems to plead." },
       tome: { name: "tome", look: "The page speaks of the Accord of Ash — a pact between men and dragons, struck ere the Sundering. The ink is faded, but one line stands bold: 'Let no son raise steel against his own blood.' Below, in the margin, a dragonslayer's hand hath scratched: 'The wyrm-scale is mailed against any blade, save where the MOON-MARK doth scar the brow. Strike there, or strike not at all.'" },
-      door: { name: "door", look: "Oak bound in iron. Beyond it waits thy quest — and the road to the Wyrm of Skar'Vael." }
+      door: { name: "door", look: "Oak bound in iron. Beyond it waits thy quest — and the long road to MOUNT KHAER'GUL, where the last wyrm lairs." }
     },
     exits: {
       door: "courtyard"
@@ -27,7 +27,7 @@ window.SCENES = {
     objects: {
       well: { name: "well", look: "The stones weep moss. The shaft yawns black and bottomless — the rope is FRAYED to a single thread, the windlass rotted through. Lean too far, and thou wilt not lean back. Below, only silence." },
       stablehand: { name: "stablehand", look: "Old Mirren. She nursed thee as a babe. Speak to her, if thou wouldst." },
-      post: { name: "post", look: "The proclamation reads: BY ORDER OF CHANCELLOR VALEN — the last dragon, SKAR'VAEL, must be slain ere the new moon. The realm's salvation depends upon it. The seal is fresh. The ink still smells of iron." },
+      post: { name: "post", look: "The proclamation reads: BY ORDER OF CHANCELLOR VALEN — the last wyrm of MOUNT KHAER'GUL must be slain ere the new moon. The realm's salvation depends upon it. The seal is fresh. The ink still smells of iron." },
       portcullis: { name: "portcullis", look: "The road west leads through the Ashen Wood, and thence to the mountain." },
       crow: { name: "crow", look: "It tilts its head at thee. Its eye is uncommonly bright — almost knowing." }
     },
@@ -49,7 +49,7 @@ window.SCENES = {
     description: "Black branches claw at a blood-orange sky. The PATH forks: one way climbs north toward the MOUNTAIN, the other descends to a HOLLOW where firelight flickers. A WOUNDED MAN lies against a stump, his cloak dark with blood. A RAVEN — or is it the same crow? — perches upon a low branch.",
     objects: {
       path: { name: "path", look: "The northern path is steep and strewn with bones picked clean. The southern hollow smells of woodsmoke and roasting meat." },
-      mountain: { name: "mountain", look: "Skar'Vael's peak. Smoke wreathes its crown. Thy destiny, if thou still believest in such things." },
+      mountain: { name: "mountain", look: "Mount KHAER'GUL. Smoke wreathes its crown. Thy destiny, if thou still believest in such things." },
       man: { name: "man", look: "A ranger, by his garb. His wound is deep — a crossbow bolt, snapped off. Royal fletching. He was shot by the Chancellor's men." },
       raven: { name: "raven", look: "It watches thee with the same bright eye as before. Art thou being followed?" },
       hollow: { name: "hollow", look: "The firelight is warm. Thou canst hear a woman humming." }
@@ -106,7 +106,7 @@ window.SCENES = {
       scar: { name: "scar", look: "A crescent moon, pale against red scale. Thy father bore its twin upon his own brow. Thou hast kissed that scar goodnight as a child." },
       valen: { name: "valen", look: "The Chancellor smiles down at thee. 'Strike, paladin. One clean blow, and the realm is saved. Hesitate, and my men will save it without thee — and for thy trouble, they will save thy village too.'" },
       crossbowmen: { name: "crossbowmen", look: "Six of them. Bolts drawn. They do not meet thine eyes — they have done this before." },
-      sword_here: { name: "sword", look: "Dawncleaver hums in thy grip. The dragon-and-sun sigil upon its pommel glows faintly, as though the blade itself now understands what it is." }
+      sword_here: { name: "sword", look: "Dawnbreaker hums in thy grip. The dragon-and-sun sigil upon its pommel glows faintly, as though the blade itself now understands what it is." }
     },
     exits: {},
     finalScene: true
@@ -115,7 +115,7 @@ window.SCENES = {
   ending_strike: {
     title: "The Killing Blow",
     art: "ending_dark",
-    description: "Thou raisest Dawncleaver. The dragon does not move. It closes its eyes. Thou bringest the blade down. The beast sighs, and in the sigh is a single word: 'Aric.' The body shudders, shrinks, and upon the gold there lies at last a man — grey-bearded, crescent-scarred, smiling faintly. Chancellor Valen claps, slow and even. 'Well done, paladin. Now — loose ends.' The crossbows turn toward thee. THOU ART DEAD. The realm is his.",
+    description: "Thou raisest Dawnbreaker. The dragon does not move. It closes its eyes. Thou bringest the blade down. The beast sighs, and in the sigh is a single word: 'Aric.' The body shudders, shrinks, and upon the gold there lies at last a man — grey-bearded, crescent-scarred, smiling faintly. Chancellor Valen claps, slow and even. 'Well done, paladin. Now — loose ends.' The crossbows turn toward thee. THOU ART DEAD. The realm is his.",
     objects: {},
     exits: {},
     ending: true
@@ -124,7 +124,7 @@ window.SCENES = {
   ending_truth: {
     title: "The Revelation",
     art: "ending_light",
-    description: "Thou lowerest Dawncleaver and turnest the blade upon Valen's archers. The dragon rises behind thee — vast, and terrible, and thine. Together, father and son, ye break the Chancellor's ambush. The Accord of Ash is renewed, signed in Valen's own ink. Thy father lays a clawed hand — gentle as any human father's — upon thy shoulder. 'I should have told thee,' he rumbles. 'I know,' thou sayest. 'Tell me now.' THOU HAST WON. But thou art no longer only a paladin.",
+    description: "Thou lowerest Dawnbreaker and turnest the blade upon Valen's archers. The dragon rises behind thee — vast, and terrible, and thine. Together, father and son, ye break the Chancellor's ambush. The Accord of Ash is renewed, signed in Valen's own ink. Thy father lays a clawed hand — gentle as any human father's — upon thy shoulder. 'I should have told thee,' he rumbles. 'I know,' thou sayest. 'Tell me now.' THOU HAST WON. But thou art no longer only a paladin.",
     objects: {},
     exits: {},
     ending: true

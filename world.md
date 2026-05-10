@@ -1,4 +1,11 @@
-# The World — *The Paladin's Revelation*
+# The World — *The Paladin's Revelation* (game canon)
+
+> **The novel bible is the real canon.** This document covers only the slice
+> of the continent **Aethon** that the game lets the player walk through. For
+> anything beyond what is on screen — the wider world, the Hallowed Order's
+> formal structure, vampires, angels, the relic-curse mechanism, Edmund
+> Aldric's full history — see `world-bible.md`. Where these two disagree,
+> the bible wins.
 
 The realm is told in three regions. They are unequal: the Greylock Marches
 are green and proud, the Salt Marches are old and forgotten, and the Cinder
@@ -22,7 +29,9 @@ Vasi. Ourovan.** Names the chronicles were ordered to forget.
 
 ## REGION 03 — The Cinder Throne
 
-Mountainous and perilous.
+Mountainous and perilous. The Cinder Throne is the part of the **Spine of
+Aethon** known to the realm of Dunhelm, and **Mount Khaer'gul** is its
+highest peak — the bald grey crown where the wyrm lairs.
 
 A capital built on a kiln. The crown here is forged anew at every
 coronation, and it has been forged a great many times.
@@ -39,7 +48,7 @@ coronation, and it has been forged a great many times.
 | `courtyard`  | Greylock Marches    | Brittlewatch — Aric's keep, where Mirren waits.        |
 | `wood`       | Greylock → border   | The Ashen Wood; the road forks east toward the Throne. |
 | `hollow`     | Salt Marches edge   | Ysolde keeps an old contract. She is older than 9.     |
-| `lair`       | Cinder Throne       | Skar'Vael, the kiln itself. The wyrm sleeps in it.     |
+| `lair`       | Cinder Throne       | Mount Khaer'gul, the kiln itself. The wyrm sleeps in it.     |
 
 ## Lineages and houses
 
@@ -63,7 +72,7 @@ inheritance.
 The change requires four objects, kept across generations and never
 gathered in one hand by accident:
 
-1. A **blade** of the bloodline (Dawncleaver bears the dragon-and-sun
+1. A **blade** of the bloodline (Dawnbreaker bears the dragon-and-sun
    sigil for a reason).
 2. A **scale** shed by the previous wyrm — warm to a kinsman's palm.
 3. A **letter** in the wyrm's own hand, sealing the inheritance.
@@ -71,7 +80,7 @@ gathered in one hand by accident:
    the line.
 
 Hold all four. Climb the kiln. The change comes whether the bearer wills
-it or not. This is why the gate to Skar'Vael in the game requires the
+it or not. This is why the gate to Mount Khaer'gul in the game requires the
 full set: not because the wyrm needs slaying, but because Aric is being
 quietly prepared for what his father became.
 
@@ -112,7 +121,7 @@ both sides.
 ```
             ┌─────────────────────────┐
             │   THE CINDER THRONE     │
-            │       ▲▲▲ Skar'Vael     │
+            │       ▲▲▲ Mount Khaer'gul     │
             │   (mountainous capital, │
             │    kiln-forged crown)   │
             └────────────┬────────────┘
@@ -145,3 +154,32 @@ both sides.
                   (east of the wood,
                    below the maps)
 ```
+
+---
+
+## Naming reconciliation (with the novel bible)
+
+Earlier drafts of the game used names that no longer match the bible.
+For anyone reading old notes, art prompts, or git history:
+
+| Retired name | Canonical name | Notes |
+|---|---|---|
+| Skar'Vael | **Mount Khaer'gul** | The peak in the Spine of Aethon. Skar'Vael survives only as a legacy asset filename. |
+| Dawncleaver | **Dawnbreaker** | Edmund Aldric's relic blade. |
+| (the dragon, named) | **the Wyrm** in-game | Bible name *Vaeltharion* is **never spoken on screen**. |
+| Cael | **Edmund** (Aldric) | "Cael" survives only in the asset key `dragon_cael.png`. |
+
+Other deliberate ambiguities (game alludes; bible explains in full):
+
+- **The Order.** In-game text uses "Order of Dawn" — treat that as the
+  paladins' colloquial chapter name within the bible's **Hallowed Order**.
+  "The Ninth Order" in this doc is the historical sequence number; the bible
+  treats it as the latest of the burned-and-rebuilt Hallowed Orders.
+- **What dragons are.** The bible's truth is *cursed humans*; the curse
+  runs in specific bloodlines. "Ourovan-only wyrm-shape with relics" in
+  this doc is the in-realm folk understanding of how the curse is
+  *triggered*, not a contradiction of the bible.
+- **Vampires.** Not on screen. Valen reads as a corrupt human chancellor
+  in the game; the bible's deeper truth (he is a vampire, the Light is
+  dragon-fire mythologized, ravens are bound demons) is reserved for
+  future work.
