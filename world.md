@@ -11,27 +11,48 @@ The realm is told in three regions. They are unequal: the Greylock Marches
 are green and proud, the Salt Marches are old and forgotten, and the Cinder
 Throne is the place where everyone ends up sooner or later, willing or not.
 
+The three are not all part of one parent. Each sits inside a different
+**Aethon-scale region** from the bible — the game's slice straddles three
+of the continent's major divisions:
+
+- **Greylock Marches** ⊂ **Dunhelm** ⊂ **The Marches** (Aethon)
+- **Salt Marches** ⊂ **The Reach** (Aethon)
+- **Cinder Throne** ⊂ **The Spine of Aethon**, where the **Skar'Vael
+  range** rises and Mount Khaer'gul is its highest peak
+
+That's why the player can ride from one to the next in a day's worth of
+scenes: Aric's road threads the seam where three of Aethon's great
+regions meet. It's the only place in the continent where the road does.
+
 ---
 
-## REGION 01 — The Greylock Marches
+## REGION 01 — The Greylock Marches *(in Dunhelm, in The Marches)*
 
-Vast green plains and forests.
+Vast green plains and forests. The heart of the realm of **Dunhelm**, which
+itself is a small lordship inside Aethon's wider **Marches** — the southern
+and western midlands of the continent.
 
 Stone keeps and a thousand-year peace, sworn upon the **Ninth Order's
 chapel** and held by the lives of every paladin since.
 
-## REGION 02 — The Salt Marches
+## REGION 02 — The Salt Marches *(in The Reach)*
 
-Swamps and steppes.
+Swamps and steppes. They lie in Aethon's eastern frontier — **The Reach** —
+the rough country where the foothills of the Spine begin and the Order's
+writ thins. The Crown's maps show the Reach as one undifferentiated
+wilderness; locals know it as the Salt Marches and a dozen other names
+the chronicles do not record.
 
 Where the **dragon-blooded houses** kept their old contracts. **Vermil.
 Vasi. Ourovan.** Names the chronicles were ordered to forget.
 
-## REGION 03 — The Cinder Throne
+## REGION 03 — The Cinder Throne *(in The Spine of Aethon)*
 
-Mountainous and perilous. The Cinder Throne is the part of the **Spine of
-Aethon** known to the realm of Dunhelm, and **Mount Khaer'gul** is its
-highest peak — the bald grey crown where the wyrm lairs.
+Mountainous and perilous. The Cinder Throne sits within the **Spine of
+Aethon**, the great mountain range running the continent's eastern border.
+Within the Spine, the section nearest Dunhelm is called the **Skar'Vael
+Range** — and **Mount Khaer'gul**, the bald grey crown where the wyrm
+lairs, is its highest peak.
 
 A capital built on a kiln. The crown here is forged anew at every
 coronation, and it has been forged a great many times.
@@ -119,40 +140,44 @@ both sides.
 ## Rough layout
 
 ```
-            ┌─────────────────────────┐
-            │   THE CINDER THRONE     │
-            │       ▲▲▲ Mount Khaer'gul     │
-            │   (mountainous capital, │
-            │    kiln-forged crown)   │
-            └────────────┬────────────┘
-                         │
-                         │  King's Road
-                         │
-            ┌────────────┴────────────┐
-            │     THE ASHEN WOOD      │
-            │  (border country, the   │
-            │   road forks here)      │
-            │                         │
-            │   ◯ The Hollow ─────────┼──→  to Salt Marches
-            └────────────┬────────────┘
-                         │
-            ┌────────────┴────────────┐
-            │   THE GREYLOCK MARCHES  │
-            │                         │
-            │   ✠  Ninth Order chapel │
-            │   ◇  Brittlewatch Keep  │
-            │       (Aric's home)     │
-            │   green plains, stone   │
-            │   keeps, the peace      │
-            └─────────────────────────┘
+       (in The Spine of Aethon)
+       ┌───────────────────────────────┐
+       │       THE CINDER THRONE       │
+       │   ▲▲▲ Skar'Vael Range ▲▲▲     │
+       │     ▲ Mount Khaer'gul ▲       │
+       │   (capital on the kiln,       │
+       │    wyrm in the cirque)        │
+       └──────────────┬────────────────┘
+                      │
+                      │  King's Road
+                      │
+       ┌──────────────┴────────────────┐
+       │        THE ASHEN WOOD         │
+       │  (border country between      │
+       │   the Spine and the Marches;  │
+       │   the road forks here)        │
+       │                               │
+       │   ◯ The Hollow ───────────────┼──→  to The Reach / Salt Marches
+       └──────────────┬────────────────┘
+                      │
+       ┌──────────────┴────────────────┐
+       │     THE GREYLOCK MARCHES      │
+       │  (in Dunhelm, in The Marches) │
+       │                               │
+       │   ✠  Ninth Order chapel       │
+       │   ◇  Brittlewatch Keep        │
+       │       (Aric's home)           │
+       │   green plains, stone         │
+       │   keeps, the peace            │
+       └───────────────────────────────┘
 
-      ╭──────────────────────────────────────╮
-      │           THE SALT MARCHES           │
-      │  swamps, steppes, the forgotten      │
-      │  houses: Vermil · Vasi · Ourovan     │
-      ╰──────────────────────────────────────╯
-                  (east of the wood,
-                   below the maps)
+   ╭───────────────────────────────────────╮
+   │    THE SALT MARCHES — in The Reach    │
+   │  swamps, steppes, the forgotten       │
+   │  houses: Vermil · Vasi · Ourovan      │
+   ╰───────────────────────────────────────╯
+              (east of the wood, where
+               the Order's writ thins)
 ```
 
 ---
@@ -164,7 +189,8 @@ For anyone reading old notes, art prompts, or git history:
 
 | Retired name | Canonical name | Notes |
 |---|---|---|
-| Skar'Vael | **Mount Khaer'gul** | The peak in the Spine of Aethon. Skar'Vael survives only as a legacy asset filename. |
+| Skar'Vael (used as the *peak* name) | **Mount Khaer'gul** | The peak. Skar'Vael as a *peak* name is retired. |
+| (no prior name for the range) | **Skar'Vael Range** | The section of the Spine of Aethon containing Khaer'gul. The name *Skar'Vael* is rehabilitated here — it is the range, not the mountain. |
 | Dawncleaver | **Dawnbreaker** | Edmund Aldric's relic blade. |
 | (the dragon, named) | **the Wyrm** in-game | Bible name *Vaeltharion* is **never spoken on screen**. |
 | Cael | **Edmund** (Aldric) | "Cael" survives only in the asset key `dragon_cael.png`. |
